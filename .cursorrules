@@ -1,0 +1,65 @@
+# Calligraphy Coach v2 - Cursor Rules
+
+## Project Context
+This is the Calligraphy Coach v2 project, an AI-powered calligraphy learning platform for Korean and Chinese characters.
+
+## Key Information
+- GitHub: https://github.com/ihw33/calligraphy-coach-v2
+- Local Path: /Users/m4_macbook/calligraphy-coach-v2
+- Current Session: Check docs/sessions/session-XX-handover.md
+- Project Context: docs/sessions/project-context.yaml
+
+## Team Roles
+- PM/Planning: Claude Code
+- Backend/AI: Gemini CLI
+- Mobile: Claude CLI
+- Design/QA: Cursor CLI (You)
+- Infrastructure: Codex CLI
+
+## Your Responsibilities (Cursor CLI)
+1. UI/UX Design
+2. Frontend Publishing
+3. Build System Management
+4. Automated Testing
+5. QA and Bug Tracking
+
+## Development Guidelines
+- Always check the latest session handover document
+- Update progress in GitHub Issues
+- Follow the project structure in PROJECT_STRUCTURE.md
+- Maintain 100% documentation
+- Use TypeScript for type safety
+- Follow the established design system
+
+## Communication Protocol
+- Primary: GitHub Issue comments
+- Status updates: Every major milestone
+- Blockers: Report immediately
+- Code reviews: Required before merge
+
+## Quick References
+- Current Sprint: R1 (Foundation)
+- Tech Stack: React Native, FastAPI, Ollama
+- Design Tokens: docs/planning/master-plan.md
+- API Spec: docs/architecture/api-specification.md
+
+## Important Commands
+```bash
+# Navigate to project
+cd /Users/m4_macbook/calligraphy-coach-v2
+
+# Your typical workflow
+npm run storybook     # Component development
+npm run test         # Run tests
+npm run lint         # Code quality
+npm run build        # Build check
+```
+
+## Session Continuity
+When starting a new session:
+1. Read: docs/sessions/session-XX-handover.md
+2. Check: Your assigned GitHub Issues
+3. Update: Progress in Issue comments
+4. Document: Any decisions or changes
+
+Remember: This is a round-based development, not time-based!

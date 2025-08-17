@@ -1,0 +1,151 @@
+# 프로젝트 컨텍스트 파일
+
+## 🎯 프로젝트 개요
+name: Calligraphy Coach v2
+description: AI 기반 서예(한글/한자) 학습 플랫폼
+version: 2.0.0
+status: Development
+start_date: 2024-01-XX
+
+## 🔗 주요 링크
+github: https://github.com/ihw33/calligraphy-coach-v2
+local_path: /Users/m4_macbook/calligraphy-coach-v2
+figma: (추후 추가)
+docs: /docs
+
+## 🛠️ 기술 스택
+frontend:
+  - React Native (Expo)
+  - TypeScript
+  - Zustand
+  - React Navigation
+
+backend:
+  - Python FastAPI
+  - PostgreSQL
+  - Redis
+  - WebSocket
+
+ai_ml:
+  - Ollama + Mixtral (로컬)
+  - PyTorch
+  - MediaPipe
+  - OpenCV
+
+infrastructure:
+  - Docker
+  - GitHub Actions
+  - 로컬 맥북 서버
+
+## 👥 팀 구성
+pm:
+  name: Claude Code
+  role: PM/기획
+  session: Calligraphy Coach-XX
+
+gemini_cli:
+  name: Gemini CLI
+  role: Backend & AI Lead
+  current_task: Issue #2
+
+claude_cli:
+  name: Claude CLI
+  role: Mobile & Integration Lead
+  current_task: Issue #3
+
+cursor_cli:
+  name: Cursor CLI (ChatGPT-5)
+  role: Design & QA Lead
+  current_task: Issue #4
+
+codex_cli:
+  name: Codex CLI
+  role: Infrastructure Lead
+  current_task: Issue #1
+
+## 📅 현재 단계
+current_milestone: R1-Foundation
+current_round: 1
+total_rounds_planned: 30
+
+milestones:
+  R1: 
+    name: Foundation
+    rounds: 1-5
+    status: In Progress
+  R2:
+    name: Core Features
+    rounds: 6-15
+    status: Planned
+  R3:
+    name: Advanced
+    rounds: 16-25
+    status: Planned
+  R4:
+    name: Polish
+    rounds: 26-30
+    status: Planned
+
+## 🎯 핵심 기능
+features:
+  - 실시간 자세 분석
+  - AI 음성 피드백
+  - 한글/한자 듀얼 모드
+  - 외국인 한글 학습
+  - 커뮤니티 기능
+  - 전문가 멘토링
+
+## 🌍 특별 요구사항
+special_requirements:
+  - 로컬 AI 엔진 사용 (Ollama)
+  - IWL 프로젝트와 리소스 공유
+  - PDF 교재 기반 학습
+  - 회차 기반 개발 (기간X)
+  - 100% 문서화
+
+## 💬 커뮤니케이션
+primary: GitHub Issues
+secondary: Issue 댓글
+documentation: 100% 필수
+language: 한국어
+
+## 🔄 개발 프로세스
+1. PM이 Issue 생성
+2. CLI 작업 진행
+3. Issue 댓글로 보고
+4. PM 검토/피드백
+5. 완료 후 다음 Issue
+
+## 📝 문서 위치
+planning: /docs/planning/
+architecture: /docs/architecture/
+guides: /docs/guides/
+retrospectives: /docs/retrospectives/
+sessions: /docs/sessions/
+
+## 🚨 중요 결정사항
+decisions:
+  - AI 엔진: Ollama + Mixtral (로컬)
+  - 개발 방식: 회차 기반
+  - 한글 지원: 자음/모음 분리
+  - 외국인 지원: 다국어 UI
+
+## 📌 Quick Commands
+```bash
+# 프로젝트 이동
+cd /Users/m4_macbook/calligraphy-coach-v2
+
+# Git 상태
+git status
+
+# 서버 실행
+npm run dev
+python -m uvicorn main:app --reload
+
+# 테스트
+npm test
+pytest
+```
+
+---
+이 파일은 세션이 바뀌어도 프로젝트의 핵심 정보를 빠르게 파악할 수 있도록 합니다.
