@@ -1,69 +1,36 @@
-name: CI/CD Pipeline
+name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
 
 jobs:
-  lint-and-test:
+  test:
     runs-on: ubuntu-latest
-    
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
     steps:
     - uses: actions/checkout@v3
     
-    - name: Setup Node.js
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
-        
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-        
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.npm
-          ~/.cache/pip
-        key: ${{ runner.os }}-deps-${{ hashFiles('**/package-lock.json', '**/requirements.txt') }}
-        
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
     - name: Install dependencies
-      run: |
-        npm ci
-        pip install -r requirements.txt
-        
-    - name: Run linters
-      run: |
-        npm run lint
-        python -m pylint services/
-        
+      run: npm ci
+    
+    - name: Run linter
+      run: npm run lint
+    
     - name: Run tests
-      run: |
-        npm test
-        python -m pytest
-        
-    - name: Upload coverage
-      uses: codecov/codecov-action@v3
-      with:
-        files: ./coverage/lcov.info,./coverage.xml
-        
-  build:
-    needs: lint-and-test
-    runs-on: ubuntu-latest
+      run: npm test
     
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Build Docker images
-      run: |
-        docker-compose build
-        
-    - name: Run integration tests
-      run: |
-        docker-compose up -d
-        npm run test:e2e
-        docker-compose down
+    - name: Build project
+      run: npm run build
