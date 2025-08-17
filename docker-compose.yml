@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: ./services/backend
+      dockerfile: Dockerfile
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./services/backend:/app
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+
+  # 개발 중 모바일(Expo)은 호스트에서 실행 권장
+  # web/mobile 컨테이너가 필요하면 별도 Dockerfile을 추가하세요.
+
+networks:
+  default:
+    name: calligraphy-coach

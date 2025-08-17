@@ -43,3 +43,26 @@ calligraphy-coach-v2/
 1. [개발 환경 설정](docs/setup/development.md)
 2. [AI CLI 가이드](docs/guides/ai-cli-guide.md)
 3. [기여 가이드](docs/CONTRIBUTING.md)
+
+## 빠른 시작(요약)
+- Node 18+, npm 9+, Python 3.11 준비
+- 의존성 설치: `npm ci`
+- 모바일 앱(Expo):
+  - `cd apps/mobile && npm start`
+- 백엔드(FastAPI):
+  - `cd services/backend && uvicorn main:app --reload`
+- Docker Compose(백엔드):
+  - `docker compose up --build` → http://localhost:8000
+
+## CI/CD
+GitHub Actions가 다음을 수행합니다:
+- Node 워크스페이스: install/lint/test/build
+- Backend 파이썬: 의존성 설치 및 임포트 스모크 체크
+
+## 코드 규약 및 훅
+- 커밋 규칙: Conventional Commits (commitlint)
+- Husky 훅:
+  - pre-commit: lint-staged(Prettier + ESLint)
+  - commit-msg: commitlint
+  - pre-push: `npm test`
+훅 설치: `npm run prepare`
