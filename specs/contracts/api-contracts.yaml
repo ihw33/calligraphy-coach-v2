@@ -1,0 +1,698 @@
+openapi: 3.0.0
+info:
+  title: Calligraphy Coach API
+  version: 0.1.0
+  description: API contracts for handwriting recognition and feedback system
+
+paths:
+  /api/sessions:
+    post:
+      summary: Create new writing session
+      operationId: createSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fontStyle
+              properties:
+                fontStyle:
+                  $ref: '#/components/schemas/FontStyle'
+                userId:
+                  type: string
+                device:
+                  $ref: '#/components/schemas/DeviceInfo'
+      responses:
+        '201':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WritingSession'
+
+    get:
+      summary: Get user sessions
+      operationId: getSessions
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of sessions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WritingSession'
+                  total:
+                    type: integer
+
+  /api/sessions/{sessionId}:
+    patch:
+      summary: Update session (end session)
+      operationId: updateSession
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                endTime:
+                  type: string
+                  format: date-time
+                totalScore:
+                  type: number
+      responses:
+        '200':
+          description: Session updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WritingSession'
+
+  /api/characters:
+    get:
+      summary: Get available characters
+      operationId: getCharacters
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [hangul, hanja]
+        - name: course
+          in: query
+          schema:
+            type: string
+        - name: difficulty
+          in: query
+          schema:
+            type: string
+            enum: [beginner, intermediate, advanced]
+      responses:
+        '200':
+          description: List of characters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Character'
+
+  /api/characters/{characterId}:
+    get:
+      summary: Get character details
+      operationId: getCharacter
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Character details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Character'
+
+  /api/attempts:
+    post:
+      summary: Submit writing attempt
+      operationId: submitAttempt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - sessionId
+                - characterId
+                - strokes
+                - canvasImage
+              properties:
+                sessionId:
+                  type: string
+                characterId:
+                  type: string
+                strokes:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Stroke'
+                canvasImage:
+                  type: string
+                  description: Base64 encoded image
+                duration:
+                  type: number
+      responses:
+        '201':
+          description: Attempt submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WritingAttempt'
+
+  /api/attempts/{attemptId}/evaluate:
+    post:
+      summary: Evaluate writing attempt
+      operationId: evaluateAttempt
+      parameters:
+        - name: attemptId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Evaluation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+
+  /api/feedback/{evaluationId}:
+    get:
+      summary: Get feedback for evaluation
+      operationId: getFeedback
+      parameters:
+        - name: evaluationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Feedback details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feedback'
+
+  /api/progress:
+    get:
+      summary: Get user progress
+      operationId: getProgress
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+        - name: character
+          in: query
+          schema:
+            type: string
+        - name: fontStyle
+          in: query
+          schema:
+            $ref: '#/components/schemas/FontStyle'
+      responses:
+        '200':
+          description: Progress data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Progress'
+
+  /api/courses:
+    get:
+      summary: Get available courses
+      operationId: getCourses
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [hanja, hangul, mixed]
+        - name: level
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+
+  # MVP 확장: 관리자 전용 엔드포인트
+  /api/admin/artworks:
+    post:
+      summary: Upload new calligraphy artwork (Admin only)
+      operationId: createArtwork
+      security:
+        - AdminAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - character
+                - fontStyle
+                - imageFile
+              properties:
+                character:
+                  type: string
+                  description: Single character in the artwork
+                fontStyle:
+                  $ref: '#/components/schemas/FontStyle'
+                imageFile:
+                  type: string
+                  format: binary
+                  description: Artwork image file
+      responses:
+        '201':
+          description: Artwork uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalligraphyArtwork'
+
+    get:
+      summary: Get all artworks (Admin only)
+      operationId: getArtworks
+      security:
+        - AdminAuth: []
+      parameters:
+        - name: character
+          in: query
+          schema:
+            type: string
+        - name: fontStyle
+          in: query
+          schema:
+            $ref: '#/components/schemas/FontStyle'
+        - name: isActive
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: List of artworks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CalligraphyArtwork'
+
+  /api/admin/artworks/{artworkId}/activate:
+    patch:
+      summary: Activate/deactivate artwork (Admin only)
+      operationId: toggleArtwork
+      security:
+        - AdminAuth: []
+      parameters:
+        - name: artworkId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - isActive
+              properties:
+                isActive:
+                  type: boolean
+      responses:
+        '200':
+          description: Artwork status updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalligraphyArtwork'
+
+  # 사용자용 작품 조회
+  /api/artworks/active:
+    get:
+      summary: Get active artworks for evaluation
+      operationId: getActiveArtworks
+      parameters:
+        - name: character
+          in: query
+          schema:
+            type: string
+        - name: fontStyle
+          in: query
+          schema:
+            $ref: '#/components/schemas/FontStyle'
+      responses:
+        '200':
+          description: List of active artworks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CalligraphyArtwork'
+
+  # 카메라 캡처 엔드포인트
+  /api/camera-captures:
+    post:
+      summary: Submit camera captured image
+      operationId: submitCameraCapture
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - sessionId
+                - characterId
+                - originalImage
+              properties:
+                sessionId:
+                  type: string
+                characterId:
+                  type: string
+                originalImage:
+                  type: string
+                  description: Base64 encoded image
+                processedImage:
+                  type: string
+                  description: Optional preprocessed image
+      responses:
+        '201':
+          description: Camera capture submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CameraCapture'
+
+  /api/camera-captures/{captureId}/evaluate:
+    post:
+      summary: Evaluate camera captured writing
+      operationId: evaluateCameraCapture
+      parameters:
+        - name: captureId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                artworkId:
+                  type: string
+                  description: Reference artwork ID for comparison
+      responses:
+        '200':
+          description: Evaluation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+
+components:
+  schemas:
+    FontStyle:
+      type: string
+      enum: [panbon, gungseo, jeonseo, haeseo]
+
+    DeviceInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [pen, touch, mouse]
+        pressureSupported:
+          type: boolean
+        maxPressure:
+          type: number
+
+    WritingSession:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        fontStyle:
+          $ref: '#/components/schemas/FontStyle'
+        charactersPracticed:
+          type: array
+          items:
+            type: string
+        totalScore:
+          type: number
+        device:
+          $ref: '#/components/schemas/DeviceInfo'
+
+    Character:
+      type: object
+      properties:
+        id:
+          type: string
+        unicode:
+          type: string
+        type:
+          type: string
+          enum: [hangul, hanja]
+        difficulty:
+          type: string
+          enum: [beginner, intermediate, advanced]
+        course:
+          type: string
+        strokeOrder:
+          type: array
+          items:
+            type: object
+            properties:
+              order:
+                type: integer
+              direction:
+                type: string
+
+    Stroke:
+      type: object
+      properties:
+        points:
+          type: array
+          items:
+            type: object
+            properties:
+              x:
+                type: number
+              y:
+                type: number
+              pressure:
+                type: number
+              timestamp:
+                type: number
+        order:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+
+    WritingAttempt:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionId:
+          type: string
+        characterId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        strokes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Stroke'
+        canvasImage:
+          type: string
+        duration:
+          type: number
+
+    Evaluation:
+      type: object
+      properties:
+        attemptId:
+          type: string
+        totalScore:
+          type: number
+        components:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum: [shape, proportion, thickness, strokeOrder]
+              score:
+                type: number
+              maxScore:
+                type: number
+              weight:
+                type: number
+              details:
+                type: string
+        recognizedCharacter:
+          type: string
+        confidence:
+          type: number
+
+    Feedback:
+      type: object
+      properties:
+        evaluationId:
+          type: string
+        overallFeedback:
+          type: string
+        improvements:
+          type: array
+          items:
+            type: object
+            properties:
+              component:
+                type: string
+              issue:
+                type: string
+              suggestion:
+                type: string
+              priority:
+                type: string
+                enum: [high, medium, low]
+        visualGuides:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              data:
+                type: string
+              description:
+                type: string
+        encouragement:
+          type: string
+
+    Progress:
+      type: object
+      properties:
+        userId:
+          type: string
+        character:
+          type: string
+        fontStyle:
+          $ref: '#/components/schemas/FontStyle'
+        attempts:
+          type: integer
+        bestScore:
+          type: number
+        averageScore:
+          type: number
+        lastPracticed:
+          type: string
+          format: date-time
+
+    Course:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [hanja, hangul, mixed]
+        level:
+          type: string
+        totalCharacters:
+          type: integer
+        description:
+          type: string
+
+    # MVP 확장: 새로운 스키마들
+    CalligraphyArtwork:
+      type: object
+      properties:
+        id:
+          type: string
+        character:
+          type: string
+        fontStyle:
+          $ref: '#/components/schemas/FontStyle'
+        imageUrl:
+          type: string
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    CameraCapture:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionId:
+          type: string
+        characterId:
+          type: string
+        originalImage:
+          type: string
+          description: Base64 encoded image
+        processedImage:
+          type: string
+          description: Optional preprocessed image
+        timestamp:
+          type: string
+          format: date-time
+
+  securitySchemes:
+    AdminAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Admin authentication token
