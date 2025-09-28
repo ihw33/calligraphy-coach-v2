@@ -164,6 +164,7 @@ interface Feedback {
   evaluationId: string;           // 피드백 대상 평가 ID (외래키)
   overallFeedback: string;        // 전체적인 평가 메시지
   improvements: Improvement[];    // 구체적인 개선 사항들
+  positive_aspects: string[];     // 잘한 점 목록 (격려용)
   visualGuides: VisualGuide[];    // 시각적 가이드 (오버레이, 애니메이션 등)
   encouragement?: string;         // 격려 메시지 (선택적)
 }

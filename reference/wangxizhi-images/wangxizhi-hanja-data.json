@@ -1,0 +1,300 @@
+{
+  "title": "왕희지 집자성교서 한자 학습 데이터",
+  "source": {
+    "name": "왕희지 집자성교서",
+    "chinese": "王羲之 集字聖敎序",
+    "period": "唐代",
+    "year": "672년경",
+    "style": "行書體"
+  },
+  "original_text": {
+    "chinese": "大唐三藏聖敎序太宗文皇",
+    "korean": "대당삼장성교서태종문황",
+    "translation": "대당의 삼장법사 현장의 성스러운 가르침에 대한 서문을 태종 문황제가 지었다"
+  },
+  "characters": [
+    {
+      "id": 1,
+      "character": "大",
+      "image": "./images/01_大_대.png",
+      "pronunciation": "대",
+      "meaning": "크다",
+      "level": "1급",
+      "radical": "大",
+      "strokes": 3,
+      "description": "크게 팔을 벌린 사람의 모습에서 '크다'는 뜻이 되었다. '위대하다, 중요하다'는 뜻도 있다.",
+      "related_chars": ["大", "太", "犬"],
+      "vocabulary": [
+        {"word": "大家", "reading": "대가", "meaning": "대가, 큰 집안"},
+        {"word": "大國", "reading": "대국", "meaning": "큰 나라"},
+        {"word": "大道", "reading": "대도", "meaning": "큰 길"},
+        {"word": "大同", "reading": "대동", "meaning": "크게 같음"},
+        {"word": "大學", "reading": "대학", "meaning": "대학"},
+        {"word": "偉大", "reading": "위대", "meaning": "위대함"},
+        {"word": "盛大", "reading": "성대", "meaning": "성대함"},
+        {"word": "擴大", "reading": "확대", "meaning": "확대"}
+      ]
+    },
+    {
+      "id": 2,
+      "character": "唐",
+      "image": "./images/02_唐_당.png",
+      "pronunciation": "당",
+      "meaning": "당나라",
+      "level": "1급",
+      "radical": "口",
+      "strokes": 10,
+      "description": "입(口)으로 크게(广) 말하는 것으로, 원래는 '큰소리치다'는 뜻이었으나 나라 이름으로 쓰인다.",
+      "related_chars": ["唐", "糖", "塘"],
+      "vocabulary": [
+        {"word": "唐國", "reading": "당국", "meaning": "당나라"},
+        {"word": "唐代", "reading": "당대", "meaning": "당나라 시대"},
+        {"word": "唐詩", "reading": "당시", "meaning": "당나라 시"},
+        {"word": "唐朝", "reading": "당조", "meaning": "당나라 조정"},
+        {"word": "盛唐", "reading": "성당", "meaning": "성당 시대"},
+        {"word": "中唐", "reading": "중당", "meaning": "중당 시대"},
+        {"word": "荒唐", "reading": "황당", "meaning": "황당함"},
+        {"word": "唐突", "reading": "당돌", "meaning": "당돌함"}
+      ]
+    },
+    {
+      "id": 3,
+      "character": "三",
+      "image": "./images/03_三_삼.png",
+      "pronunciation": "삼",
+      "meaning": "셋",
+      "level": "8급",
+      "radical": "一",
+      "strokes": 3,
+      "description": "가로획 셋으로 숫자 '3'을 나타낸다. 여러 번, 많다는 뜻도 있다.",
+      "related_chars": ["三"],
+      "vocabulary": [
+        {"word": "三角", "reading": "삼각", "meaning": "삼각형"},
+        {"word": "三國", "reading": "삼국", "meaning": "세 나라"},
+        {"word": "三代", "reading": "삼대", "meaning": "삼대"},
+        {"word": "三分", "reading": "삼분", "meaning": "세 부분"},
+        {"word": "三世", "reading": "삼세", "meaning": "삼세"},
+        {"word": "三日", "reading": "삼일", "meaning": "사흘"},
+        {"word": "三千", "reading": "삼천", "meaning": "삼천"},
+        {"word": "再三", "reading": "재삼", "meaning": "재삼"}
+      ]
+    },
+    {
+      "id": 4,
+      "character": "藏",
+      "image": "./images/04_藏_장.png",
+      "pronunciation": "장",
+      "meaning": "감추다",
+      "level": "1급",
+      "radical": "艸",
+      "strokes": 17,
+      "description": "풀(艸) 속에 물건을 넣어(臧) 감추는 것으로 '감추다, 저장하다'는 뜻이다. 불교의 '삼장(三藏)'에도 쓰인다.",
+      "related_chars": ["藏", "臟"],
+      "vocabulary": [
+        {"word": "藏書", "reading": "장서", "meaning": "책을 보관함"},
+        {"word": "藏匿", "reading": "장닉", "meaning": "감추어 숨김"},
+        {"word": "貯藏", "reading": "저장", "meaning": "저장"},
+        {"word": "收藏", "reading": "수장", "meaning": "수집하여 보관"},
+        {"word": "三藏", "reading": "삼장", "meaning": "불교의 삼장"},
+        {"word": "經藏", "reading": "경장", "meaning": "경전을 모은 것"},
+        {"word": "寶藏", "reading": "보장", "meaning": "보물창고"},
+        {"word": "秘藏", "reading": "비장", "meaning": "비밀히 간직"}
+      ]
+    },
+    {
+      "id": 5,
+      "character": "聖",
+      "image": "./images/05_聖_성.png",
+      "pronunciation": "성",
+      "meaning": "성스럽다",
+      "level": "준3급",
+      "radical": "耳",
+      "strokes": 13,
+      "description": "귀(耳)로 잘 듣고(呈) 입(口)으로 가르치는 사람으로 '성인, 성스럽다'는 뜻이다.",
+      "related_chars": ["聖", "聽"],
+      "vocabulary": [
+        {"word": "聖人", "reading": "성인", "meaning": "성인"},
+        {"word": "聖經", "reading": "성경", "meaning": "성경"},
+        {"word": "聖地", "reading": "성지", "meaning": "성지"},
+        {"word": "聖賢", "reading": "성현", "meaning": "성인과 현인"},
+        {"word": "神聖", "reading": "신성", "meaning": "신성함"},
+        {"word": "聖上", "reading": "성상", "meaning": "임금"},
+        {"word": "至聖", "reading": "지성", "meaning": "지극한 성인"},
+        {"word": "大聖", "reading": "대성", "meaning": "큰 성인"}
+      ]
+    },
+    {
+      "id": 6,
+      "character": "敎",
+      "image": "./images/06_敎_교.png",
+      "pronunciation": "교",
+      "meaning": "가르치다",
+      "level": "준4급",
+      "radical": "攴",
+      "strokes": 11,
+      "description": "아이(子)를 회초리(攴)로 가르치는(孝) 모습으로 '가르치다, 교육'을 뜻한다.",
+      "related_chars": ["敎", "教"],
+      "vocabulary": [
+        {"word": "敎育", "reading": "교육", "meaning": "교육"},
+        {"word": "敎師", "reading": "교사", "meaning": "교사"},
+        {"word": "敎授", "reading": "교수", "meaning": "교수"},
+        {"word": "敎訓", "reading": "교훈", "meaning": "교훈"},
+        {"word": "宗敎", "reading": "종교", "meaning": "종교"},
+        {"word": "佛敎", "reading": "불교", "meaning": "불교"},
+        {"word": "敎化", "reading": "교화", "meaning": "교화"},
+        {"word": "敎理", "reading": "교리", "meaning": "교리"}
+      ]
+    },
+    {
+      "id": 7,
+      "character": "序",
+      "image": "./images/07_序_서.png",
+      "pronunciation": "서",
+      "meaning": "차례",
+      "level": "준3급",
+      "radical": "广",
+      "strokes": 7,
+      "description": "집(广) 안에서 실(予)을 차례로 정리하는 모습으로 '차례, 순서, 서문'을 뜻한다.",
+      "related_chars": ["序", "敍"],
+      "vocabulary": [
+        {"word": "序文", "reading": "서문", "meaning": "서문"},
+        {"word": "序論", "reading": "서론", "meaning": "서론"},
+        {"word": "序幕", "reading": "서막", "meaning": "서막"},
+        {"word": "順序", "reading": "순서", "meaning": "순서"},
+        {"word": "秩序", "reading": "질서", "meaning": "질서"},
+        {"word": "序列", "reading": "서열", "meaning": "서열"},
+        {"word": "次序", "reading": "차서", "meaning": "차례"},
+        {"word": "自序", "reading": "자서", "meaning": "자서"}
+      ]
+    },
+    {
+      "id": 8,
+      "character": "太",
+      "image": "./images/08_太_태.png",
+      "pronunciation": "태",
+      "meaning": "크다",
+      "level": "준6급",
+      "radical": "大",
+      "strokes": 4,
+      "description": "큰(大)에 점을 더해 '더욱 크다, 매우'를 뜻한다. 황제나 왕의 칭호에도 쓰인다.",
+      "related_chars": ["大", "太"],
+      "vocabulary": [
+        {"word": "太子", "reading": "태자", "meaning": "태자"},
+        {"word": "太后", "reading": "태후", "meaning": "태후"},
+        {"word": "太平", "reading": "태평", "meaning": "태평"},
+        {"word": "太陽", "reading": "태양", "meaning": "태양"},
+        {"word": "太極", "reading": "태극", "meaning": "태극"},
+        {"word": "太宗", "reading": "태종", "meaning": "태종"},
+        {"word": "太祖", "reading": "태조", "meaning": "태조"},
+        {"word": "皇太子", "reading": "황태자", "meaning": "황태자"}
+      ]
+    },
+    {
+      "id": 9,
+      "character": "宗",
+      "image": "./images/09_宗_종.png",
+      "pronunciation": "종",
+      "meaning": "마루",
+      "level": "준4급",
+      "radical": "宀",
+      "strokes": 8,
+      "description": "집(宀) 안의 제단(示)으로 '조상, 종가, 으뜸'을 뜻한다. 왕의 묘호에도 쓰인다.",
+      "related_chars": ["宗", "崇"],
+      "vocabulary": [
+        {"word": "宗家", "reading": "종가", "meaning": "종가"},
+        {"word": "宗廟", "reading": "종묘", "meaning": "종묘"},
+        {"word": "宗敎", "reading": "종교", "meaning": "종교"},
+        {"word": "宗族", "reading": "종족", "meaning": "종족"},
+        {"word": "宗派", "reading": "종파", "meaning": "종파"},
+        {"word": "太宗", "reading": "태종", "meaning": "태종"},
+        {"word": "世宗", "reading": "세종", "meaning": "세종"},
+        {"word": "高宗", "reading": "고종", "meaning": "고종"}
+      ]
+    },
+    {
+      "id": 10,
+      "character": "文",
+      "image": "./images/10_文_문.png",
+      "pronunciation": "문",
+      "meaning": "글",
+      "level": "7급",
+      "radical": "文",
+      "strokes": 4,
+      "description": "무늬를 그린 모양으로 '글, 문장, 문화'를 뜻한다. 문덕을 갖춘 왕의 시호에도 쓰인다.",
+      "related_chars": ["文"],
+      "vocabulary": [
+        {"word": "文章", "reading": "문장", "meaning": "문장"},
+        {"word": "文學", "reading": "문학", "meaning": "문학"},
+        {"word": "文化", "reading": "문화", "meaning": "문화"},
+        {"word": "文明", "reading": "문명", "meaning": "문명"},
+        {"word": "文字", "reading": "문자", "meaning": "문자"},
+        {"word": "文書", "reading": "문서", "meaning": "문서"},
+        {"word": "文人", "reading": "문인", "meaning": "문인"},
+        {"word": "漢文", "reading": "한문", "meaning": "한문"}
+      ]
+    },
+    {
+      "id": 11,
+      "character": "皇",
+      "image": "./images/11_皇_황.png",
+      "pronunciation": "황",
+      "meaning": "임금",
+      "level": "준3급",
+      "radical": "白",
+      "strokes": 9,
+      "description": "왕(王)의 위에 빛나는 백(白)으로 '황제, 크다, 아름답다'를 뜻한다.",
+      "related_chars": ["皇", "凰"],
+      "vocabulary": [
+        {"word": "皇帝", "reading": "황제", "meaning": "황제"},
+        {"word": "皇后", "reading": "황후", "meaning": "황후"},
+        {"word": "皇室", "reading": "황실", "meaning": "황실"},
+        {"word": "皇位", "reading": "황위", "meaning": "황위"},
+        {"word": "皇子", "reading": "황자", "meaning": "황자"},
+        {"word": "皇太子", "reading": "황태자", "meaning": "황태자"},
+        {"word": "天皇", "reading": "천황", "meaning": "천황"},
+        {"word": "皇恩", "reading": "황은", "meaning": "황제의 은혜"}
+      ]
+    }
+  ],
+  "study_guide": {
+    "levels": [
+      {
+        "name": "초급",
+        "grade": "7-8급",
+        "characters": ["三", "文"],
+        "description": "기본 한자로 획수가 적고 구조가 간단"
+      },
+      {
+        "name": "중급",
+        "grade": "준4-6급",
+        "characters": ["太", "宗", "敎"],
+        "description": "중간 난이도로 일상에서 자주 사용"
+      },
+      {
+        "name": "고급",
+        "grade": "준3급",
+        "characters": ["序", "聖", "皇"],
+        "description": "복잡한 구조와 의미를 가진 한자"
+      },
+      {
+        "name": "최고급",
+        "grade": "1급",
+        "characters": ["大", "唐", "藏"],
+        "description": "전문적 수준의 한자"
+      }
+    ],
+    "practice_tips": [
+      "왕희지 행서체의 유려한 필법을 관찰하세요",
+      "획의 강약과 흐름의 자연스러운 변화를 익히세요",
+      "각 글자의 균형과 전체적 조화를 고려하세요",
+      "검은 배경에 흰 글씨로 된 원본의 특징을 살려 연습하세요"
+    ]
+  },
+  "metadata": {
+    "created_date": "2025-01-24",
+    "version": "1.0",
+    "total_characters": 11,
+    "image_format": "PNG",
+    "image_path": "./images/"
+  }
+}

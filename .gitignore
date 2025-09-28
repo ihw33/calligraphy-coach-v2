@@ -66,6 +66,26 @@ models/weights/
 *.tmp
 *.temp
 .cache/
+tmp_*.txt
+
+# Archive and Cleanup
+archive/cleanup-*/
+
+# Test files
+*.test.js
+*.test.html
+test-*.js
+test-*.html
+*-test.js
+*-test.html
+
+# Backup folders
+*-backup/
+backup*/
+
+# Image processing scripts
+extract*.py
+wangxizhi*.py
 
 # Ollama
 ollama/models/*

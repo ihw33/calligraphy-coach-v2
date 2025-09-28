@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>서예 연습 앱 테스트</title>
+    <meta charset="utf-8">
+    <style>
+        body { margin: 0; font-family: Arial; }
+        .container { 
+            width: 100vw; 
+            height: 100vh; 
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .title { font-size: 48px; margin-bottom: 20px; }
+        .chars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
+        .char { 
+            background: white; 
+            color: black; 
+            padding: 20px; 
+            border-radius: 10px; 
+            text-align: center; 
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .char:hover { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">🎯 서예 연습 앱</div>
+        <div>웹에서 정상 작동 중입니다!</div>
+        
+        <div class="chars">
+            <div class="char" onclick="alert('ㄱ 선택됨!')">ㄱ<br><small>기역</small></div>
+            <div class="char" onclick="alert('ㄴ 선택됨!')">ㄴ<br><small>니은</small></div>
+            <div class="char" onclick="alert('ㄷ 선택됨!')">ㄷ<br><small>디귿</small></div>
+            <div class="char" onclick="alert('一 선택됨!')">一<br><small>일</small></div>
+            <div class="char" onclick="alert('二 선택됨!')">二<br><small>이</small></div>
+            <div class="char" onclick="alert('三 선택됨!')">三<br><small>삼</small></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,135 +1,49 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAppStore } from '../store/useAppStore';
+/**
+ * 홈 화면 - 글자 선택
+ */
 
-export const HomeScreen: React.FC = () => {
-  const { user } = useAppStore();
+import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { CharacterSelector } from '../components/CharacterSelector';
+import { RootStackParamList } from '../navigation/AppNavigator';
+import { getStatistics } from '../utils/storage';
+import { useFocusEffect } from '@react-navigation/native';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export default function HomeScreen({ navigation }: Props) {
+  const [stats, setStats] = useState<any>(null);
+
+  // 화면 포커스 시마다 통계 새로고침
+  useFocusEffect(
+    React.useCallback(() => {
+      getStatistics().then(setStats);
+    }, [])
+  );
+
+  const handleCharacterSelect = (character: any) => {
+    navigation.navigate('Practice', { character });
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Text style={styles.greeting}>
-            안녕하세요, {user?.name || '학습자'}님!
+    <View style={{ flex: 1 }}>
+      {/* 간단한 통계 표시 */}
+      {stats && stats.totalPractices > 0 && (
+        <View style={{ padding: 16, backgroundColor: '#f5f5f5' }}>
+          <Text style={{ fontSize: 16, marginBottom: 8 }}>
+            총 연습: {stats.totalPractices}회
           </Text>
-          <Text style={styles.level}>Level {user?.level || 1}</Text>
+          <Text style={{ fontSize: 16, marginBottom: 8 }}>
+            평균 점수: {stats.averageScore}점
+          </Text>
+          <Text style={{ fontSize: 16 }}>
+            최고 점수: {stats.bestScore}점
+          </Text>
         </View>
-
-        <View style={styles.statsContainer}>
-          <View style={styles.statBox}>
-            <Text style={styles.statValue}>{user?.points || 0}</Text>
-            <Text style={styles.statLabel}>포인트</Text>
-          </View>
-          <View style={styles.statBox}>
-            <Text style={styles.statValue}>0</Text>
-            <Text style={styles.statLabel}>연습 횟수</Text>
-          </View>
-          <View style={styles.statBox}>
-            <Text style={styles.statValue}>0</Text>
-            <Text style={styles.statLabel}>연속 학습</Text>
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>오늘의 학습</Text>
-          <TouchableOpacity style={styles.lessonCard}>
-            <Text style={styles.lessonTitle}>기초 획 연습</Text>
-            <Text style={styles.lessonDescription}>
-              서예의 기본이 되는 획 연습을 시작해보세요
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>최근 학습 기록</Text>
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyText}>아직 학습 기록이 없습니다</Text>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      )}
+      
+      <CharacterSelector onSelect={handleCharacterSelect} />
+    </View>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  header: {
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  greeting: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  level: {
-    fontSize: 16,
-    color: '#666',
-    marginTop: 5,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#fff',
-    paddingVertical: 20,
-    marginTop: 10,
-  },
-  statBox: {
-    alignItems: 'center',
-  },
-  statValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  statLabel: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 5,
-  },
-  section: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
-    marginBottom: 15,
-  },
-  lessonCard: {
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  lessonTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000',
-    marginBottom: 8,
-  },
-  lessonDescription: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 20,
-  },
-  emptyState: {
-    backgroundColor: '#fff',
-    padding: 40,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  emptyText: {
-    fontSize: 14,
-    color: '#999',
-  },
-});
+}

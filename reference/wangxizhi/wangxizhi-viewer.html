@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>왕희지 집자성교서 Page 6 - 인터랙티브 뷰어</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .full-text {
+            font-size: 3em;
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            font-family: 'Noto Serif CJK KR', serif;
+            letter-spacing: 0.1em;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .full-text-meaning {
+            font-size: 1.2em;
+            text-align: center;
+            color: #555;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+        
+        .grid-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 15px;
+            flex: 1;
+        }
+        
+        .char-card {
+            aspect-ratio: 1;
+            border: 3px solid #e0e0e0;
+            padding: 20px;
+            text-align: center;
+            border-radius: 12px;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .char-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .char-card.selected {
+            border-color: #764ba2;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+        
+        .char-card.empty {
+            visibility: hidden;
+        }
+        
+        .char {
+            font-size: 4em;
+            font-family: 'Noto Serif CJK KR', serif;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .pronunciation {
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .meaning {
+            font-size: 1em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .index-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .detail-panel {
+            flex: 0 0 400px;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            border: 3px solid #e0e0e0;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .detail-panel h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .detail-char {
+            font-size: 6em;
+            font-family: 'Noto Serif CJK KR', serif;
+            text-align: center;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        
+        .detail-info {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .detail-info h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .detail-info p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .learning-order {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 12px;
+        }
+        
+        .learning-order h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+        }
+        
+        .order-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .order-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .order-num {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .order-char {
+            font-size: 1.5em;
+            font-family: 'Noto Serif CJK KR', serif;
+            margin-right: 10px;
+        }
+        
+        .order-reason {
+            color: #7f8c8d;
+            flex: 1;
+        }
+        
+        @media (max-width: 1200px) {
+            .grid-container {
+                flex-direction: column;
+            }
+            
+            .detail-panel {
+                flex: 1;
+                max-height: none;
+                margin-top: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .full-text {
+                font-size: 2em;
+                padding: 20px;
+            }
+            
+            .char {
+                font-size: 3em;
+            }
+            
+            .grid {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>왕희지 집자성교서</h1>
+        <p class="subtitle">王羲之 集字聖敎序 - Page 6</p>
+        
+        <div class="full-text">大唐三藏聖敎序太宗文皇帝製</div>
+        <p class="full-text-meaning">
+            대당(唐)의 삼장법사 현장의 성스러운 가르침에 대한 서문을 태종 문황제가 지었다
+        </p>
+        
+        <div class="grid-container">
+            <div class="grid" id="charGrid"></div>
+            
+            <div class="detail-panel">
+                <h2>한자 상세 정보</h2>
+                <div id="detailContent">
+                    <p style="text-align: center; color: #999; padding: 40px;">
+                        한자를 클릭하면 상세 정보가 표시됩니다
+                    </p>
+                </div>
+                
+                <div class="learning-order">
+                    <h3>📚 학습 추천 순서</h3>
+                    <div id="learningOrder"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const characters = [
+            {"char": "大", "음": "대", "훈": "큰", "english": "big", "col": 2, "row": 0, "index": 1},
+            {"char": "唐", "음": "당", "훈": "당나라", "english": "Tang dynasty", "col": 2, "row": 1, "index": 2},
+            {"char": "藏", "음": "장", "훈": "감출", "english": "hide", "col": 2, "row": 2, "index": 3},
+            {"char": "聖", "음": "성", "훈": "성인", "english": "saint", "col": 2, "row": 3, "index": 4},
+            {"char": "敎", "음": "교", "훈": "가르칠", "english": "teach", "col": 1, "row": 0, "index": 5},
+            {"char": "序", "음": "서", "훈": "차례", "english": "order", "col": 1, "row": 1, "index": 6},
+            {"char": "太", "음": "태", "훈": "클", "english": "great", "col": 1, "row": 2, "index": 7},
+            {"char": "宗", "음": "종", "훈": "마루", "english": "ancestor", "col": 0, "row": 0, "index": 8},
+            {"char": "文", "음": "문", "훈": "글월", "english": "literature", "col": 0, "row": 1, "index": 9},
+            {"char": "皇", "음": "황", "훈": "임금", "english": "emperor", "col": 0, "row": 2, "index": 10},
+            {"char": "帝", "음": "제", "훈": "임금", "english": "emperor", "col": 0, "row": 3, "index": 11}
+        ];
+        
+        const learningOrder = [
+            {"순서": 1, "한자": "大", "이유": "기본 획이 간단하고 균형 잡기 좋음"},
+            {"순서": 2, "한자": "文", "이유": "기본적인 형태로 연습하기 적합"},
+            {"순서": 3, "한자": "太", "이유": "大와 비슷하지만 점이 추가되어 변화 연습"},
+            {"순서": 4, "한자": "宗", "이유": "갓머리 구조 연습"},
+            {"순서": 5, "한자": "皇", "이유": "王 부수의 변형 연습"},
+            {"순서": 6, "한자": "帝", "이유": "복합 구조 연습"},
+            {"순서": 7, "한자": "序", "이유": "엄 부수와 여 부분의 조화"},
+            {"순서": 8, "한자": "敎", "이유": "복잡한 좌우 구조"},
+            {"순서": 9, "한자": "唐", "이유": "엄 부수의 다른 활용"},
+            {"순서": 10, "한자": "聖", "이유": "복잡한 상하 구조"},
+            {"순서": 11, "한자": "藏", "이유": "가장 복잡한 획수와 구조"}
+        ];
+        
+        const sebeop = {
+            "大": "1번법 - 천복자범화개모어기하",
+            "唐": "4번법 - 양우자좌고",
+            "藏": "33번법 - 삼합법",
+            "聖": "34번법 - 이단법",
+            "敎": "22번법 - 편정법",
+            "序": "21번법 - 향배법",
+            "太": "1번법 - 천복자범화개모어기하",
+            "宗": "1번법 - 천복자범화개모어기하",
+            "文": "1번법 - 천복자범화개모어기하",
+            "皇": "2번법 - 지재자유화개탁어기상",
+            "帝": "2번법 - 지재자유화개탁어기상"
+        };
+        
+        let selectedChar = null;
+        
+        function initGrid() {
+            const grid = document.getElementById('charGrid');
+            const gridArray = Array(12).fill(null);
+            
+            characters.forEach(char => {
+                const position = char.col * 4 + char.row;
+                gridArray[position] = char;
+            });
+            
+            gridArray.forEach((char, index) => {
+                const card = document.createElement('div');
+                card.className = char ? 'char-card' : 'char-card empty';
+                
+                if (char) {
+                    card.innerHTML = `
+                        <div class="index-badge">${char.index}</div>
+                        <div class="char">${char.char}</div>
+                        <div class="pronunciation">${char.음}</div>
+                        <div class="meaning">${char.훈}</div>
+                    `;
+                    
+                    card.addEventListener('click', () => selectChar(char, card));
+                }
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        function selectChar(char, cardElement) {
+            // Remove previous selection
+            document.querySelectorAll('.char-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to current card
+            cardElement.classList.add('selected');
+            selectedChar = char;
+            
+            // Update detail panel
+            updateDetailPanel(char);
+        }
+        
+        function updateDetailPanel(char) {
+            const detailContent = document.getElementById('detailContent');
+            detailContent.innerHTML = `
+                <div class="detail-char">${char.char}</div>
+                
+                <div class="detail-info">
+                    <h3>기본 정보</h3>
+                    <p><strong>음:</strong> ${char.음}</p>
+                    <p><strong>훈:</strong> ${char.훈}</p>
+                    <p><strong>영어:</strong> ${char.english}</p>
+                    <p><strong>순서:</strong> ${char.index}번째 글자</p>
+                    <p><strong>위치:</strong> ${char.col + 1}열 ${char.row + 1}행</p>
+                </div>
+                
+                <div class="detail-info">
+                    <h3>서예 정보</h3>
+                    <p><strong>황자원 92법:</strong> ${sebeop[char.char]}</p>
+                    <p><strong>서체:</strong> 해서체(楷書)</p>
+                </div>
+            `;
+        }
+        
+        function initLearningOrder() {
+            const orderContainer = document.getElementById('learningOrder');
+            
+            learningOrder.forEach(item => {
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                orderItem.innerHTML = `
+                    <div class="order-num">${item.순서}</div>
+                    <div class="order-char">${item.한자}</div>
+                    <div class="order-reason">${item.이유}</div>
+                `;
+                
+                orderItem.addEventListener('click', () => {
+                    const charData = characters.find(c => c.char === item.한자);
+                    if (charData) {
+                        const cards = document.querySelectorAll('.char-card');
+                        cards.forEach(card => {
+                            if (card.querySelector('.char')?.textContent === item.한자) {
+                                selectChar(charData, card);
+                                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        });
+                    }
+                });
+                
+                orderContainer.appendChild(orderItem);
+            });
+        }
+        
+        // Initialize
+        initGrid();
+        initLearningOrder();
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{
+  "source": "왕희지 집자성교서 page 6",
+  "pdf_location": "/Users/m4_macbook/Downloads/왕희지 집자성교서 page 6.pdf",
+  "total_characters": 11,
+  "grid_layout": "3x4 (중앙열은 3개)",
+  "characters": [
+    {
+      "index": 1,
+      "filename": "01_大_대.png",
+      "character": "大",
+      "pronunciation": "대",
+      "meaning": "큰",
+      "grid_position": {"column": 3, "row": 1},
+      "difficulty": "초급"
+    },
+    {
+      "index": 2,
+      "filename": "02_唐_당.png",
+      "character": "唐",
+      "pronunciation": "당",
+      "meaning": "당나라",
+      "grid_position": {"column": 3, "row": 2},
+      "difficulty": "중급"
+    },
+    {
+      "index": 3,
+      "filename": "03_三_삼.png",
+      "character": "三",
+      "pronunciation": "삼",
+      "meaning": "셋",
+      "grid_position": {"column": 3, "row": 3},
+      "difficulty": "초급"
+    },
+    {
+      "index": 4,
+      "filename": "04_藏_장.png",
+      "character": "藏",
+      "pronunciation": "장",
+      "meaning": "감출",
+      "grid_position": {"column": 3, "row": 4},
+      "difficulty": "고급"
+    },
+    {
+      "index": 5,
+      "filename": "05_聖_성.png",
+      "character": "聖",
+      "pronunciation": "성",
+      "meaning": "성인",
+      "grid_position": {"column": 2, "row": 1},
+      "difficulty": "고급"
+    },
+    {
+      "index": 6,
+      "filename": "06_敎_교.png",
+      "character": "敎",
+      "pronunciation": "교",
+      "meaning": "가르칠",
+      "grid_position": {"column": 2, "row": 2},
+      "difficulty": "중급"
+    },
+    {
+      "index": 7,
+      "filename": "07_序_서.png",
+      "character": "序",
+      "pronunciation": "서",
+      "meaning": "차례",
+      "grid_position": {"column": 2, "row": 3},
+      "difficulty": "중급"
+    },
+    {
+      "index": 8,
+      "filename": "08_太_태.png",
+      "character": "太",
+      "pronunciation": "태",
+      "meaning": "클",
+      "grid_position": {"column": 1, "row": 1},
+      "difficulty": "초급"
+    },
+    {
+      "index": 9,
+      "filename": "09_宗_종.png",
+      "character": "宗",
+      "pronunciation": "종",
+      "meaning": "마루",
+      "grid_position": {"column": 1, "row": 2},
+      "difficulty": "중급"
+    },
+    {
+      "index": 10,
+      "filename": "10_文_문.png",
+      "character": "文",
+      "pronunciation": "문",
+      "meaning": "글월",
+      "grid_position": {"column": 1, "row": 3},
+      "difficulty": "초급"
+    },
+    {
+      "index": 11,
+      "filename": "11_皇_황.png",
+      "character": "皇",
+      "pronunciation": "황",
+      "meaning": "임금",
+      "grid_position": {"column": 1, "row": 4},
+      "difficulty": "중급"
+    },
+    {
+      "index": 12,
+      "filename": "12_帝_제.png",
+      "character": "帝",
+      "pronunciation": "제",
+      "meaning": "임금",
+      "grid_position": {"column": 1, "row": 5},
+      "difficulty": "중급"
+    }
+  ],
+  "extraction_guide": {
+    "method": "수동 스크린샷 캡처",
+    "steps": [
+      "1. PDF 파일 열기: /Users/m4_macbook/Downloads/왕희지 집자성교서 page 6.pdf",
+      "2. 각 한자를 개별적으로 캡처 (검은 배경 포함)",
+      "3. 위의 filename 형식으로 저장",
+      "4. 저장 위치: /Users/m4_macbook/Projects/calligraphy-coach-v2/wangxizhi-images/"
+    ],
+    "notes": "검은 배경에 흰 글씨 형태 유지"
+  }
+}

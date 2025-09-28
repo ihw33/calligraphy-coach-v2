@@ -1,0 +1,34 @@
+{
+  "filename": "05_哥_가.png",
+  "character": "哥",
+  "reading": "가",
+  "meaning": "(姓) 가",
+  "radical": "口",
+  "strokes": 7,
+  "explanation": "입김이 퍼지는(可) 것으로, 본래 '노래(歌)'를 뜻하나 국어에서는 金哥, 李哥에서 보듯 주로 '(姓)'을 뜻한다.",
+  "examples": [
+    "哥哥(가가)",
+    "金哥(김가)",
+    "李哥(이가)",
+    "二哥(이가)",
+    "大哥(대가)",
+    "八哥(팔가)"
+  ],
+  "source": {
+    "book": "한자능력검정시험 1급",
+    "page": 39,
+    "extraction_date": "2025-09-24T13:59:37.287008"
+  },
+  "image_info": {
+    "format": "PNG",
+    "dimensions": "400x200",
+    "dpi": 300
+  },
+  "tags": [
+    "hanja",
+    "chinese-character",
+    "grade-1",
+    "calligraphy",
+    "reading-가"
+  ]
+}

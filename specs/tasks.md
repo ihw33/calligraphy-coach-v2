@@ -1,225 +1,229 @@
-# 작업 목록: React 웹앱 기반 서예 연습 시스템
+# Tasks: 디지털 서예 웹앱 (Phase 2: UI-백엔드 통합)
 
-**브랜치**: `001-` | **날짜**: 2025-09-16 | **계획**: [plan.md](./plan.md)
-**TDD 접근**: RED-GREEN-리팩토링 | **기반**: 기존 Figma 소스 활용
+**Input**: Integration requirements from `/specs/spec.md` Phase 2 section
+**Prerequisites**: plan.md (updated), existing UI (`calligraphy-coach/`), backend (`apps/web/`)
 
-## 핵심 원칙
-- ✅ 테스트 먼저 작성 (RED)
-- ✅ 최소한으로 구현 (GREEN) 
-- ✅ 기존 Figma UI 컴포넌트 활용
-- ✅ Canvas API + Camera API 통합
-- ✅ 오버엔지니어링 금지
-
-## 🎯 React 웹앱 목표 
-- **핵심 가치**: React 웹앱에서 캔버스 그리기 + 카메라 촬영 → 평가 결과
-- **UI 기반**: 기존 Figma 소스 (shadcn/ui + Tailwind CSS)
-- **기술 스택**: React + Next.js + Canvas API + Camera API
-- **평가 방식**: 2단계 (기본 평가 → 향후 LLM 확장)
-
-## 🎨 활용할 기존 컴포넌트
+## 실행 흐름 (Phase 2 통합)
 ```
-apps/web/src/components/ (Figma 소스 기반)
-├── HomeScreen.tsx        ✅ 메인 화면 (완성됨)
-├── CameraScreen.tsx      🔧 Canvas API 통합 필요
-├── EvaluationScreen.tsx  ✅ 평가 결과 화면 (완성됨)
-├── TabNavigation.tsx     ✅ 네비게이션 (완성됨)
-└── ui/                   ✅ shadcn/ui 컴포넌트 (완성됨)
+1. Phase 2 목표: 기존 완성된 UI + 우리 백엔드 시스템 통합
+   → 기존: calligraphy-coach (shadcn/ui + Tailwind v4)
+   → 우리: apps/web (React + Vite + TypeScript + Zustand)
+2. 통합 전략:
+   → 기존 UI 베이스로 활용 (디자인/UX 보존)
+   → 하드코딩 데이터 → 실제 API 교체
+   → AuthContext → useAuth 훅 연동
+   → Canvas 시스템 → stroke-capture 패키지
+   → LLM 평가 시스템 연동
+3. 통합 순서 (점진적):
+   → 환경 설정 → 인증 → 데이터 → Canvas → LLM → 최적화
+4. TDD 적용: 통합 테스트 → 기능 검증 → 최종 구현
+5. Phase 2 = 실용적 앱 완성 (23-28 tasks)
 ```
 
-## 📁 경로 규칙
-- **메인 앱**: `apps/web/` (React + Next.js)
-- **기존 UI**: `apps/web/src/components/` (Figma 소스)
-- **테스트**: `apps/web/src/__tests__/` (Vitest + Testing Library)
-- **Canvas 로직**: `apps/web/src/lib/canvas/`
+## Format: `[ID] [P?] Description`
+- **[P]**: 병렬 실행 가능 (다른 파일, 의존성 없음)
+- 정확한 파일 경로 포함
+
+## Path Conventions
+**기존 UI 베이스**: `calligraphy-coach/src/` (완성된 UI)
+**우리 백엔드**: `apps/web/src/` (개발된 백엔드 시스템)
+**통합 작업 공간**: `calligraphy-coach/` 기반 확장
 
 ---
 
-## Phase 1: 개발 환경 설정 (1-3)
+## Phase 1: 환경 설정 및 호환성 (T001-T005)
 
-### 1. [SETUP] Vite → Next.js 변환
-- **목표**: 기존 Figma 소스를 Next.js 14 구조로 변환
-- **접근**: package.json, vite.config.ts → next.config.js 변환
-- **성공 조건**: `npm run dev` 실행 시 기존 UI 정상 표시
-- **경로**: `apps/web/`
-- **예상 시간**: 30분
+- [ ] T001 [P] 기존 UI와 우리 백엔드 폴더 구조 분석 및 통합 계획 수립
+- [ ] T002 프로젝트 의존성 통합 - calligraphy-coach package.json에 우리 백엔드 패키지 추가
+- [ ] T003 [P] Tailwind CSS v4 ↔ v3 호환성 확인 및 충돌 해결
+- [ ] T004 [P] TypeScript 설정 통합 및 컴파일 에러 해결
+- [ ] T005 통합 개발 환경 구성 - 단일 npm run dev로 전체 앱 실행
 
-### 2. [SETUP] 테스트 환경 구성
-- **목표**: Vitest + Testing Library + Playwright 설정
-- **접근**: 기존 shadcn/ui 컴포넌트 테스트 가능하도록 설정
-- **성공 조건**: `npm test` 실행 시 기본 테스트 통과
-- **경로**: `apps/web/vitest.config.ts`, `apps/web/playwright.config.ts`
-- **예상 시간**: 25분
+## Phase 2: 인증 시스템 통합 (T006-T009)
+**목표: 기존 UI의 AuthContext를 우리 소셜 로그인 시스템으로 교체**
 
-### 3. [TEST] 기존 컴포넌트 테스트 작성
-- **목표**: HomeScreen, TabNavigation 등 기존 컴포넌트 테스트
-- **접근**: Testing Library 기반 렌더링 테스트
-- **성공 조건**: 기존 UI 컴포넌트들이 정상 렌더링됨
-- **경로**: `apps/web/src/__tests__/components/`
-- **예상 시간**: 20분
+- [ ] T006 [P] 기존 AuthContext와 우리 useAuth 훅 인터페이스 비교 분석
+- [ ] T007 기존 AuthContext.tsx를 우리 소셜 로그인 시스템으로 교체
+- [ ] T008 [P] Landing.tsx 소셜 로그인 버튼을 실제 OAuth 연동으로 교체
+- [ ] T009 인증 상태 관리 통합 테스트 - 로그인/로그아웃 플로우 검증
 
-## Phase 2: Canvas API 통합 (4-8)
+## Phase 3: 데이터 레이어 통합 (T010-T015)
+**목표: 하드코딩된 데이터를 실제 API 및 IndexedDB 연동으로 교체**
 
-### 4. [TEST] Canvas 컴포넌트 테스트 작성
-- **목표**: CameraScreen에 Canvas 요소 추가를 위한 테스트
-- **접근**: Canvas 엘리먼트 존재 및 크기 확인
-- **성공 조건**: Canvas가 CameraScreen 내에서 정상 렌더링
-- **경로**: `apps/web/src/__tests__/components/CameraScreen.test.tsx`
-- **예상 시간**: 20분
+- [ ] T010 [P] 기존 UI 하드코딩 데이터 구조 분석 (Home.tsx, PracticeScreen.tsx 등)
+- [ ] T011 우리 엔티티 (WritingSession, Progress, Evaluation) 매핑 테이블 작성
+- [ ] T012 [P] localStorage 기반 데이터를 IndexedDB + 우리 storage.ts로 마이그레이션
+- [ ] T013 WeeklyStatsDetails.tsx 통계 데이터를 실제 사용자 연습 기록으로 교체
+- [ ] T014 Home.tsx 개인 최고 기록 위젯을 실제 성취 데이터와 연동
+- [ ] T015 데이터 통합 테스트 - 연습 기록 저장/조회 플로우 검증
 
-### 5. [IMPL] CameraScreen에 Canvas 통합
-- **목표**: 기존 CameraScreen UI에 Canvas 요소 추가
-- **접근**: 기존 가이드 오버레이 위에 Canvas 레이어 추가
-- **성공 조건**: 테스트 통과 + Canvas가 UI에 자연스럽게 통합
-- **경로**: `apps/web/src/components/CameraScreen.tsx`
-- **예상 시간**: 35분
+## Phase 4: Canvas 시스템 통합 (T016-T020)
+**목표: PracticeScreen Canvas를 우리 stroke-capture 패키지로 교체**
 
-### 6. [TEST] 터치/마우스 그리기 테스트
-- **목표**: Canvas에서 터치/마우스 입력으로 그리기 기능 확인
-- **접근**: Pointer Events 시뮬레이션 (터치 + 마우스 통합)
-- **성공 조건**: 터치/마우스 모두에서 선 그리기 가능
-- **경로**: `apps/web/src/__tests__/lib/canvas.test.ts`
-- **예상 시간**: 30분
+- [ ] T016 [P] 기존 PracticeScreen.tsx Canvas 구현 분석
+- [ ] T017 우리 stroke-capture 패키지를 기존 UI 구조에 통합
+- [ ] T018 [P] 압력 감지 및 실시간 획 데이터 수집 기능 추가
+- [ ] T019 Canvas 그리기 평가를 우리 character-recognition 시스템으로 연동
+- [ ] T020 Canvas 통합 테스트 - 그리기 → 평가 → 결과 표시 플로우 검증
 
-### 7. [IMPL] Canvas 그리기 로직 구현
-- **목표**: Pointer Events API 기반 그리기 시스템
-- **접근**: 압력 감지 지원 (향후 확장 준비)
-- **성공 조건**: 테스트 통과 + 부드러운 그리기 경험
-- **경로**: `apps/web/src/lib/canvas/drawing.ts`
-- **예상 시간**: 45분
+## Phase 5: LLM 평가 통합 (T021-T025)
+**목표: 카메라 촬영 기능을 우리 LLM 평가 시스템과 연동**
 
-### 8. [TEST] 스트로크 데이터 저장 테스트
-- **목표**: 그린 선의 좌표/압력 데이터 저장 확인
-- **접근**: 스트로크 데이터 구조 및 상태 관리 테스트
-- **성공 조건**: 그리기 시 스트로크 배열에 데이터 저장
-- **경로**: `apps/web/src/__tests__/lib/stroke-data.test.ts`
-- **예상 시간**: 20분
+- [ ] T021 [P] 기존 카메라 촬영 모드 분석 (PracticeScreen.tsx photo 탭)
+- [ ] T022 카메라 촬영 → LLM API 연동 파이프라인 구현
+- [ ] T023 [P] LLM 평가 결과 (8개 기준)를 기존 UI 구조에 맞게 표시
+- [ ] T024 LLM 실패 시 Canvas API 폴백 시스템 구현
+- [ ] T025 LLM 평가 통합 테스트 - 촬영 → 평가 → 피드백 플로우 검증
 
-## Phase 3: 평가 시스템 통합 (9-12)
+## Phase 6: UI 최적화 및 마무리 (T026-T028)
+**목표: 성능 최적화 및 사용자 경험 완성**
 
-### 9. [IMPL] 스트로크 데이터 저장 구현
-- **목표**: Phase 2 테스트를 통과시키는 상태 관리
-- **접근**: React Context 또는 Zustand로 스트로크 배열 관리
-- **성공 조건**: 그리기 시 좌표/압력 데이터가 배열에 저장
-- **경로**: `apps/web/src/lib/canvas/stroke-storage.ts`
-- **예상 시간**: 25분
-
-### 10. [TEST] 기본 평가 로직 테스트
-- **목표**: 간단한 이미지 비교 기반 점수 계산 확인
-- **접근**: Canvas ImageData 비교 알고리즘 테스트
-- **성공 조건**: 스트로크 데이터 → 0-100점 점수 반환
-- **경로**: `apps/web/src/__tests__/lib/evaluation.test.ts`
-- **예상 시간**: 30분
-
-### 11. [IMPL] 기본 평가 알고리즘 구현
-- **목표**: Canvas 기반 간단한 평가 시스템
-- **접근**: 면적, 중심점, 획 수 기반 점수 계산
-- **성공 조건**: 테스트 통과 + 일관된 점수 산출
-- **경로**: `apps/web/src/lib/evaluation/basic-evaluator.ts`
-- **예상 시간**: 40분
-
-### 12. [IMPL] EvaluationScreen 연동
-- **목표**: 기존 EvaluationScreen에 실제 평가 결과 표시
-- **접근**: 기존 UI 구조 유지하면서 실제 데이터 연결
-- **성공 조건**: 그리기 완료 후 평가 화면에 실제 점수 표시
-- **경로**: `apps/web/src/components/EvaluationScreen.tsx`
-- **예상 시간**: 30분
-
-## Phase 4: Camera API 통합 (13-16)
-
-### 13. [TEST] 카메라 기능 테스트
-- **목표**: 기존 CameraScreen의 촬영 버튼 기능 확인
-- **접근**: getUserMedia Mock + 촬영 버튼 클릭 테스트
-- **성공 조건**: 버튼 클릭 시 카메라 스트림 획득 및 촬영
-- **경로**: `apps/web/src/__tests__/components/CameraScreen.test.tsx`
-- **예상 시간**: 25분
-
-### 14. [IMPL] Camera API 연동
-- **목표**: 기존 CameraScreen에 실제 카메라 기능 추가
-- **접근**: getUserMedia + video element 연동
-- **성공 조건**: 실제 카메라 프리뷰 표시 + 촬영 가능
-- **경로**: `apps/web/src/lib/camera/camera-capture.ts`
-- **예상 시간**: 40분
-
-### 15. [TEST] 촬영 이미지 처리 테스트
-- **목표**: 촬영한 이미지를 평가용으로 전처리하는 기능 확인
-- **접근**: 이미지 → Canvas → ImageData 변환 테스트
-- **성공 조건**: 촬영 이미지가 평가 가능한 형태로 변환
-- **경로**: `apps/web/src/__tests__/lib/image-processing.test.ts`
-- **예상 시간**: 30분
-
-### 16. [IMPL] 이미지 전처리 구현
-- **목표**: 촬영 이미지를 평가 알고리즘에 적합하게 전처리
-- **접근**: 크기 정규화, 노이즈 제거, 이진화
-- **성공 조건**: 테스트 통과 + 카메라/Canvas 모두 동일한 평가 가능
-- **경로**: `apps/web/src/lib/image-processing/preprocessor.ts`
-- **예상 시간**: 45분
-
-## Phase 5: 통합 및 완성 (17-20)
-
-### 17. [TEST] 네비게이션 통합 테스트
-- **목표**: HomeScreen → CameraScreen → EvaluationScreen 플로우 확인
-- **접근**: 기존 TabNavigation 기반 화면 전환 테스트
-- **성공 조건**: 전체 사용자 플로우가 끊김없이 작동
-- **경로**: `apps/web/src/__tests__/integration/user-flow.test.ts`
-- **예상 시간**: 30분
-
-### 18. [IMPL] 전체 플로우 연결
-- **목표**: 모든 화면과 기능을 하나의 완성된 앱으로 통합
-- **접근**: React Router 또는 Next.js 라우팅 + 상태 공유
-- **성공 조건**: 홈 → 연습 → 평가 → 결과 저장 전체 플로우 완성
-- **경로**: `apps/web/src/app/` (Next.js App Router)
-- **예상 시간**: 40분
-
-### 19. [TEST] E2E 테스트 (Playwright)
-- **목표**: 실제 브라우저에서 전체 사용자 시나리오 확인
-- **접근**: Playwright로 Canvas 그리기, 카메라 촬영, 평가 확인
-- **성공 조건**: 실제 사용 환경에서 모든 기능 정상 작동
-- **경로**: `apps/web/e2e/calligraphy-practice.spec.ts`
-- **예상 시간**: 45분
-
-### 20. [IMPL] 성능 최적화 및 마무리
-- **목표**: Canvas 렌더링 최적화 및 전체 앱 안정화
-- **접근**: 메모이제이션, 이벤트 디바운싱, 에러 바운더리
-- **성공 조건**: 60fps 유지, 모든 테스트 통과, 에러 처리 완비
-- **경로**: 전체 앱 최적화
-- **예상 시간**: 50분
-
-## ✅ 완료 기준
-- ✅ **모든 테스트 통과**: Vitest + Testing Library + Playwright
-- ✅ **React 웹앱 완성**: `apps/web/` 에서 실제 동작 확인
-- ✅ **Canvas 그리기 플로우**: 터치/마우스 → 평가 → 결과 표시
-- ✅ **카메라 촬영 플로우**: 촬영 → 이미지 처리 → 평가 → 결과 표시
-- ✅ **기존 UI 통합**: Figma 디자인 시스템 활용
-- ✅ **성능 목표**: Canvas 60fps, 평가 <2초
-- ✅ **에러 처리**: 카메라 권한, Canvas 지원, 네트워크 오류
-
-## 📊 예상 총 소요 시간
-**약 8-10시간** (환경설정 1.5시간 + Canvas 통합 3시간 + 평가시스템 2.5시간 + Camera API 2.5시간 + 통합 1.5시간)
-
-## ⚡ TDD 원칙
-- **RED**: 실패하는 테스트 먼저 작성
-- **GREEN**: 테스트를 통과시키는 최소 구현  
-- **REFACTOR**: 기존 Figma UI 구조 활용하여 코드 정리
-- **한 번에 하나씩**: 여러 기능 동시 작업 금지
-
-## 🚀 향후 확장 로드맵 (Phase 6+)
-### 단기 (1-2주)
-- **압력 감지**: Pointer Events API로 펜 태블릿 지원
-- **LocalStorage**: 연습 기록 저장/불러오기
-- **PWA**: 오프라인 지원, 앱 설치 가능
-
-### 중기 (1-2개월)  
-- **TensorFlow.js**: 실제 문자 인식 및 고급 평가
-- **IndexedDB**: 대용량 이미지 및 획 데이터 관리
-- **다양한 서체**: 판본체, 궁서체, 전서체, 해서체
-
-### 장기 (3-6개월)
-- **LLM 통합**: GPT-4 Vision 기반 전문가 수준 평가
-- **학습 커리큘럼**: 단계별 학습 과정 및 진도 관리
-- **소셜 기능**: 작품 공유, 커뮤니티, 랭킹 시스템
+- [ ] T026 [P] 젠 스타일 디자인 보정 - 우리 브랜드와 기존 UI 조화
+- [ ] T027 성능 최적화 - Canvas 60fps, LLM 응답 <10초, 메모리 사용량 최적화
+- [ ] T028 통합 E2E 테스트 - 전체 사용자 플로우 (로그인 → 연습 → 평가 → 기록)
 
 ---
-*React 웹앱 기반: 기존 Figma UI + Canvas API + Camera API 통합*
-*TDD 방식: 각 구현 전 반드시 실패하는 테스트부터 작성*
+
+## 핵심 원칙 (Phase 2 통합)
+- ✅ **기존 UI 보존**: 젠 스타일 디자인과 UX 최대한 유지
+- ✅ **점진적 통합**: 컴포넌트별 단계적 교체로 안정성 확보
+- ✅ **성능 우선**: 기존 UI 성능 + 우리 백엔드 최적화
+- ✅ **사용자 경험**: 통합 후에도 일관된 서예 학습 경험 제공
+
+## 🎯 Phase 2 통합 목표
+- **핵심 가치**: 완성된 UI + 실제 동작하는 백엔드 = 실용적 서예 앱
+- **UI 기반**: 기존 calligraphy-coach (shadcn/ui + Tailwind v4 + 젠 스타일)
+- **백엔드**: 우리 인증/스토리지/Canvas/LLM 시스템
+- **통합 방식**: 기존 UI 컴포넌트 내부 로직만 교체
+
+## 🎨 통합할 기존 컴포넌트
+```
+calligraphy-coach/src/components/
+├── Home.tsx             🔧 데이터 → 실제 API
+├── PracticeScreen.tsx   🔧 Canvas → stroke-capture
+├── Landing.tsx          🔧 AuthContext → useAuth
+├── AuthContext.tsx      🔧 → 우리 소셜 로그인
+├── WeeklyStatsDetails.tsx 🔧 차트 데이터 → 실제 기록
+└── ui/                  ✅ shadcn/ui (그대로 유지)
+```
+
+## 📁 통합 경로 규칙
+- **작업 공간**: `calligraphy-coach/` (기존 UI 베이스)
+- **백엔드 소스**: `apps/web/src/` (우리 개발 시스템)
+- **통합 방향**: `apps/web/src/*` → `calligraphy-coach/src/*`
+
+---
+
+## ✅ 완료 기준 (Phase 2)
+- ✅ **기존 UI 보존**: 젠 스타일 디자인 및 사용자 경험 유지
+- ✅ **인증 시스템**: 실제 소셜 로그인 (Google/Apple/Kakao) 작동
+- ✅ **데이터 연동**: 하드코딩 → 실제 사용자 데이터 표시
+- ✅ **Canvas 통합**: stroke-capture 기반 그리기 및 평가
+- ✅ **LLM 평가**: 카메라 촬영 → AI 피드백 제공
+- ✅ **성능 목표**: 60fps Canvas + <10초 LLM 응답
+- ✅ **통합 테스트**: 전체 앱 플로우 정상 작동
+
+## 📊 예상 통합 소요 시간
+**약 2-3주** (환경설정 3일 + 인증통합 4일 + 데이터연동 5일 + Canvas통합 4일 + LLM통합 5일 + 최적화 3일)
+
+## ⚡ Phase 2 통합 원칙
+- **기존 우선**: 기존 UI 디자인과 UX를 최대한 보존
+- **점진적**: 한 번에 하나의 컴포넌트씩 통합
+- **검증**: 각 단계마다 기능 테스트 후 다음 단계 진행
+- **성능**: 통합 후에도 기존 성능 수준 유지 또는 개선
+
+---
+
+## Phase 7: 한자 서예 및 법첩 수업 구축 (T029-T040)
+**목표: 한자 서예 커리큘럼 확장 - 서법92 + 명가 법첩 시리즈**
+
+### 서법 92 기본 과정
+- [ ] T029 서법 92 기본 이론 커리큘럼 구성
+- [ ] T030 서법 92 평가 기준 및 AI 프롬프트 개발
+
+### 왕희지 법첩 시리즈
+- [ ] T031 왕희지 천자문(해서) 수업 구축 - 한자, 내용, 평가자료 세트
+- [ ] T032 왕희지 집자성교서(행서) 수업 구축
+- [ ] T033 왕희지 난정서(행서) 수업 구축
+
+### 안진경 법첩 시리즈  
+- [ ] T034 안진경 안근례비(해서) 수업 구축 - 한자, 내용, 평가자료 세트
+
+### 구양순 법첩 시리즈
+- [ ] T035 구양순 구성궁예천명(해서) 수업 구축
+
+### AI 평가 프롬프트 차별화
+- [ ] T036 왕희지 작품별 AI 평가 프롬프트 개발 (유려함, 중화미)
+- [ ] T037 안진경 작품 AI 평가 프롬프트 개발 (웅장함, 안체)
+- [ ] T038 구양순 작품 AI 평가 프롬프트 개발 (정교함, 구체)
+
+### 확장 준비
+- [ ] T039 조맹부, 왕탁 등 추가 법첩 리스트 정리
+- [ ] T040 한자 서예 통합 커리큘럼 체계 구축
+
+### 황자원 92 서법 구현 (진행중)
+- [x] T040.1 황자원 92 서법 커리큘럼 데이터 구축 (서법 1-4 완료)
+- [ ] T040.2 PracticeScreen과 황92 서법 레슨 연동
+- [ ] T040.3 한자별 평가 포인트 표시 시스템
+- [ ] T040.4 실물 모드 카메라 촬영 및 AI 평가
+
+**참고 자료**:
+- `/specs/practice-screen-design.md` - PracticeScreen 페이지 설계
+- `/specs/hwang92-location-state.md` - 황자원 92 서법 데이터 구조 명세
+
+---
+
+## Phase 8: 서체별 AI 평가 시스템 구현 (T041-T045)
+**목표: 각 서체/법첩별 차별화된 평가 시스템**
+
+- [ ] T041 한글 서체별 평가 기준 구현 (판본체, 궁서체, K-Culture)
+- [ ] T042 한자 해서 평가 시스템 (왕희지, 안진경, 구양순 차별화)
+- [ ] T043 한자 행서 평가 시스템 (집자성교서, 난정서)
+- [ ] T044 서법 92 기본기 평가 시스템
+- [ ] T045 평가 결과 피드백 생성 시스템 (서체별 맞춤형)
+
+---
+
+## Phase 9: 앱스토어 등록을 위한 React Native 전환 (T046-T060)
+**목표: iOS/Android 네이티브 앱 개발 및 스토어 등록**
+
+### 기반 구축
+- [ ] T046 React Native + Expo 프로젝트 초기화
+- [ ] T047 React Navigation 네비게이션 시스템 구축
+- [ ] T048 i18n 다국어 시스템 설정 (한/영/중/일)
+- [ ] T049 컴포넌트 매핑 계획 수립 (React → React Native)
+
+### 핵심 기능 이식
+- [ ] T050 Canvas → React Native Skia 전환
+- [ ] T051 Google/Apple 소셜 로그인 구현
+- [ ] T052 AsyncStorage 로컬 데이터 저장
+- [ ] T053 Expo Camera 카메라 기능 구현
+- [ ] T054 오프라인 모드 지원
+
+### UI/UX 네이티브 최적화
+- [ ] T055 플랫폼별 UI 컴포넌트 조정 (iOS/Android)
+- [ ] T056 네이티브 제스처 및 애니메이션 구현
+- [ ] T057 성능 최적화 (60fps 목표)
+
+### 스토어 준비
+- [ ] T058 앱 아이콘/스플래시 스크린 제작
+- [ ] T059 스토어 스크린샷 준비 (각 언어별)
+- [ ] T060 앱스토어/구글플레이 등록 및 심사
+
+---
+
+## Phase 10: 네비게이션 재구조화 (T061-T065)
+**목표: 서예 중심 + 다양한 진입점 제공**
+
+- [ ] T061 3개 메인 카테고리 구현 (Learn Korean / 서예 마스터 / Study Hanja)
+- [ ] T062 K-Culture 섹션 영어 UI 구현
+- [ ] T063 코스 완료 시 서예 유도 시스템
+- [ ] T064 진도별 다음 단계 추천 로직
+- [ ] T065 통합 학습 경로 대시보드
+
+---
+*Phase 2 통합: 기존 완성된 UI + 우리 백엔드 시스템 = 실용적 서예 앱*
+*Phase 7-8 추가: 한자 서예 확장 + 서체별 AI 평가 차별화*
+*Phase 9-10 추가: 앱스토어 등록 + 네비게이션 재구조화*
 
 

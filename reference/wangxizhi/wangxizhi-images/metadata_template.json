@@ -1,0 +1,171 @@
+{
+  "project": {
+    "title": "왕희지 집자성교서 한자 이미지 컬렉션",
+    "source": "왕희지 집자성교서 Page 6",
+    "calligrapher": "王羲之 (Wang Xizhi)",
+    "dynasty": "唐代 집자",
+    "style": "행서체(行書)",
+    "created_date": "2025-01-24"
+  },
+  "original_text": {
+    "full": "大唐三藏聖敎序太宗文皇帝製",
+    "korean": "대당삼장성교서태종문황제제",
+    "meaning": "대당의 삼장법사 현장의 성스러운 가르침에 대한 서문을 태종 문황제가 지었다"
+  },
+  "images": [
+    {
+      "id": 1,
+      "filename": "01_太_태.png",
+      "character": "太",
+      "pronunciation": "태",
+      "meaning": "클",
+      "position": {"column": 1, "row": 1},
+      "difficulty": "초급",
+      "stroke_count": 4,
+      "sebeop": "1번법 - 천복자범화개모어기하"
+    },
+    {
+      "id": 2,
+      "filename": "02_宗_종.png",
+      "character": "宗",
+      "pronunciation": "종",
+      "meaning": "마루",
+      "position": {"column": 1, "row": 2},
+      "difficulty": "중급",
+      "stroke_count": 8,
+      "sebeop": "1번법 - 천복자범화개모어기하"
+    },
+    {
+      "id": 3,
+      "filename": "03_文_문.png",
+      "character": "文",
+      "pronunciation": "문",
+      "meaning": "글월",
+      "position": {"column": 1, "row": 3},
+      "difficulty": "초급",
+      "stroke_count": 4,
+      "sebeop": "1번법 - 천복자범화개모어기하"
+    },
+    {
+      "id": 4,
+      "filename": "04_皇_황.png",
+      "character": "皇",
+      "pronunciation": "황",
+      "meaning": "임금",
+      "position": {"column": 1, "row": 4},
+      "difficulty": "중급",
+      "stroke_count": 9,
+      "sebeop": "2번법 - 지재자유화개탁어기상"
+    },
+    {
+      "id": 5,
+      "filename": "05_帝_제.png",
+      "character": "帝",
+      "pronunciation": "제",
+      "meaning": "임금",
+      "position": {"column": 1, "row": 5},
+      "difficulty": "중급",
+      "stroke_count": 9,
+      "sebeop": "2번법 - 지재자유화개탁어기상"
+    },
+    {
+      "id": 6,
+      "filename": "06_聖_성.png",
+      "character": "聖",
+      "pronunciation": "성",
+      "meaning": "성인",
+      "position": {"column": 2, "row": 1},
+      "difficulty": "고급",
+      "stroke_count": 13,
+      "sebeop": "34번법 - 이단법"
+    },
+    {
+      "id": 7,
+      "filename": "07_敎_교.png",
+      "character": "敎",
+      "pronunciation": "교",
+      "meaning": "가르칠",
+      "position": {"column": 2, "row": 2},
+      "difficulty": "중급",
+      "stroke_count": 11,
+      "sebeop": "22번법 - 편정법"
+    },
+    {
+      "id": 8,
+      "filename": "08_序_서.png",
+      "character": "序",
+      "pronunciation": "서",
+      "meaning": "차례",
+      "position": {"column": 2, "row": 3},
+      "difficulty": "중급",
+      "stroke_count": 7,
+      "sebeop": "21번법 - 향배법"
+    },
+    {
+      "id": 9,
+      "filename": "09_大_대.png",
+      "character": "大",
+      "pronunciation": "대",
+      "meaning": "큰",
+      "position": {"column": 3, "row": 1},
+      "difficulty": "초급",
+      "stroke_count": 3,
+      "sebeop": "1번법 - 천복자범화개모어기하"
+    },
+    {
+      "id": 10,
+      "filename": "10_唐_당.png",
+      "character": "唐",
+      "pronunciation": "당",
+      "meaning": "당나라",
+      "position": {"column": 3, "row": 2},
+      "difficulty": "중급",
+      "stroke_count": 10,
+      "sebeop": "4번법 - 양우자좌고"
+    },
+    {
+      "id": 11,
+      "filename": "11_三_삼.png",
+      "character": "三",
+      "pronunciation": "삼",
+      "meaning": "셋",
+      "position": {"column": 3, "row": 3},
+      "difficulty": "초급",
+      "stroke_count": 3,
+      "sebeop": "기본 횡획법"
+    },
+    {
+      "id": 12,
+      "filename": "12_藏_장.png",
+      "character": "藏",
+      "pronunciation": "장",
+      "meaning": "감출",
+      "position": {"column": 3, "row": 4},
+      "difficulty": "고급",
+      "stroke_count": 17,
+      "sebeop": "33번법 - 삼합법"
+    }
+  ],
+  "learning_notes": {
+    "recommended_order": [
+      "09_大_대.png - 가장 기본적인 구조",
+      "03_文_문.png - 간단한 획",
+      "11_三_삼.png - 기본 횡획 연습",
+      "01_太_태.png - 大에 점 추가",
+      "02_宗_종.png - 갓머리 구조",
+      "04_皇_황.png - 王 부수 활용",
+      "05_帝_제.png - 복합 구조",
+      "08_序_서.png - 좌우 균형",
+      "10_唐_당.png - 엄 부수",
+      "07_敎_교.png - 좌우 대칭",
+      "06_聖_성.png - 복잡한 상하구조",
+      "12_藏_장.png - 최고 난이도"
+    ],
+    "practice_tips": [
+      "검은 배경에 흰 글씨로 왕희지 특유의 유려함이 돋보입니다",
+      "각 한자의 중심을 잡고 균형감을 익히세요",
+      "획의 강약과 흐름을 자연스럽게 표현하세요",
+      "전체적인 조화를 생각하며 연습하세요"
+    ]
+  }
+}

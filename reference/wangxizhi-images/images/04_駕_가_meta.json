@@ -1,0 +1,40 @@
+{
+  "filename": "04_駕_가.png",
+  "character": "駕",
+  "reading": "가",
+  "meaning": "멍에 가",
+  "radical": "馬",
+  "strokes": 5,
+  "explanation": "수레를 (馬)에 붙(加)이는 데서, '멍에, 멍에를 메우다' (말을) 부리다'는 뜻",
+  "examples": [
+    "沈駕(가륙)",
+    "駕辭(가사)",
+    "駕御(가어)",
+    "車駕(거가)",
+    "仙駕(선가)",
+    "晩駕(만가)",
+    "小駕(소가)",
+    "從駕(종가)",
+    "駐駕(주가)"
+  ],
+  "source": {
+    "book": "한자능력검정시험 1급",
+    "page": 39,
+    "extraction_date": "2025-09-24T13:59:37.286924"
+  },
+  "image_info": {
+    "format": "PNG",
+    "dimensions": "400x200",
+    "dpi": 300
+  },
+  "tags": [
+    "hanja",
+    "chinese-character",
+    "grade-1",
+    "calligraphy",
+    "reading-가"
+  ],
+  "synonyms": [
+    "御"
+  ]
+}

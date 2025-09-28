@@ -12,11 +12,11 @@
 - stroke-capture, character-recognition, calligraphy-evaluator, feedback-generator
 - Canvas API, LLM 연동, 데이터 모델, TDD 테스트
 
-### Team B: Frontend App Team (Cursor ChatGPT)  
+### Team B: Frontend App Team (Codex)  
 **담당**: React 앱 구현 및 통합
 - React/Next.js 컴포넌트, 상태 관리, API 연동, 라우팅
 
-### Team C: Design System Team (Figma AI)
+### Team C: Design System Team (ChatGPT)
 **담당**: UI/UX 설계 및 디자인 시스템
 - 화면 구성, 사용자 여정, 디자인 토큰, 프로토타이핑
 

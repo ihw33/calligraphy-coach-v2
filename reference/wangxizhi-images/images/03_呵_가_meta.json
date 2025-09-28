@@ -1,0 +1,49 @@
+{
+  "filename": "03_呵_가.png",
+  "character": "呵",
+  "reading": "가",
+  "meaning": "꾸짖을 가",
+  "radical": "口",
+  "strokes": 5,
+  "explanation": "소리(口)를 입 밖으로 내는(丁) 것으로, '꾸짖다, 웃다'는 뜻",
+  "examples": [
+    "呵呵(가가)",
+    "呵喝(가갈)",
+    "呵怒(가노)",
+    "呵凍(가동)",
+    "呵止(가치)",
+    "呵叱(가질)",
+    "呵責(가책)",
+    "呵許(가허)",
+    "呵護(가호)",
+    "受呵(수가)",
+    "笑呵(소가)",
+    "前呵(전가)",
+    "叱呵(질가)",
+    "筆呵(필가)"
+  ],
+  "source": {
+    "book": "한자능력검정시험 1급",
+    "page": 39,
+    "extraction_date": "2025-09-24T13:59:37.286845"
+  },
+  "image_info": {
+    "format": "PNG",
+    "dimensions": "400x200",
+    "dpi": 300
+  },
+  "tags": [
+    "hanja",
+    "chinese-character",
+    "grade-1",
+    "calligraphy",
+    "reading-가"
+  ],
+  "synonyms": [
+    "喝",
+    "譴",
+    "斥",
+    "叱",
+    "責"
+  ]
+}

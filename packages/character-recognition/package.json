@@ -1,0 +1,24 @@
+{
+  "name": "@calligraphy-coach/character-recognition",
+  "version": "1.0.0",
+  "description": "Korean and Chinese character recognition for calligraphy",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["calligraphy", "ocr", "korean", "chinese", "recognition"],
+  "author": "Team A - Claude Code",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "bin": {
+    "character-recognition": "./bin/cli.js"
+  }
+}

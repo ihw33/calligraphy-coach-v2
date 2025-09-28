@@ -1,0 +1,30 @@
+{
+  "name": "@calligraphy-coach/mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for Calligraphy Coach project - enables Claude to work with Figma designs and GitHub",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "@octokit/rest": "^20.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "figma",
+    "github",
+    "ui-design",
+    "automation"
+  ]
+}

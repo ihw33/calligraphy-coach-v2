@@ -1,0 +1,128 @@
+{
+  "source": "왕희지 집자성교서",
+  "extracted_date": "2025-09-24T11:01:13.967173",
+  "total_characters": 11,
+  "characters": [
+    {
+      "index": 1,
+      "character": "太",
+      "korean": "태",
+      "meaning": "클",
+      "filename": "01_太_태.png",
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "index": 2,
+      "character": "宗",
+      "korean": "종",
+      "meaning": "마루",
+      "filename": "02_宗_종.png",
+      "position": [
+        0,
+        1
+      ]
+    },
+    {
+      "index": 3,
+      "character": "文",
+      "korean": "문",
+      "meaning": "글월",
+      "filename": "03_文_문.png",
+      "position": [
+        0,
+        2
+      ]
+    },
+    {
+      "index": 4,
+      "character": "皇",
+      "korean": "황",
+      "meaning": "임금",
+      "filename": "04_皇_황.png",
+      "position": [
+        0,
+        3
+      ]
+    },
+    {
+      "index": 5,
+      "character": "聖",
+      "korean": "성",
+      "meaning": "성인",
+      "filename": "05_聖_성.png",
+      "position": [
+        1,
+        0
+      ]
+    },
+    {
+      "index": 6,
+      "character": "敎",
+      "korean": "교",
+      "meaning": "가르칠",
+      "filename": "06_敎_교.png",
+      "position": [
+        1,
+        1
+      ]
+    },
+    {
+      "index": 7,
+      "character": "序",
+      "korean": "서",
+      "meaning": "차례",
+      "filename": "07_序_서.png",
+      "position": [
+        1,
+        2
+      ]
+    },
+    {
+      "index": 8,
+      "character": "大",
+      "korean": "대",
+      "meaning": "큰",
+      "filename": "08_大_대.png",
+      "position": [
+        2,
+        0
+      ]
+    },
+    {
+      "index": 9,
+      "character": "唐",
+      "korean": "당",
+      "meaning": "당나라",
+      "filename": "09_唐_당.png",
+      "position": [
+        2,
+        1
+      ]
+    },
+    {
+      "index": 10,
+      "character": "三",
+      "korean": "삼",
+      "meaning": "석",
+      "filename": "10_三_삼.png",
+      "position": [
+        2,
+        2
+      ]
+    },
+    {
+      "index": 11,
+      "character": "藏",
+      "korean": "장",
+      "meaning": "감출",
+      "filename": "11_藏_장.png",
+      "position": [
+        2,
+        3
+      ]
+    }
+  ]
+}

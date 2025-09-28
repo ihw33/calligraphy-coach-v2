@@ -1,0 +1,91 @@
+name: Figma Design Sync
+
+on:
+  # 수동 실행
+  workflow_dispatch:
+    inputs:
+      figma_file_key:
+        description: 'Figma file key to sync'
+        required: true
+        type: string
+      node_ids:
+        description: 'Specific node IDs (comma-separated)'
+        required: false
+        type: string
+  
+  # 정기 실행 (매일 오전 9시)
+  schedule:
+    - cron: '0 0 * * *'
+  
+  # PR에 figma-sync 라벨이 추가될 때
+  pull_request:
+    types: [labeled]
+
+jobs:
+  sync:
+    if: |
+      github.event_name == 'workflow_dispatch' || 
+      github.event_name == 'schedule' ||
+      (github.event_name == 'pull_request' && github.event.label.name == 'figma-sync')
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          cd packages/figma-sync
+          npm install
+      
+      - name: Build package
+        run: |
+          cd packages/figma-sync
+          npm run build
+      
+      - name: Run Figma sync
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FIGMA_FILE_KEY: ${{ inputs.figma_file_key || secrets.DEFAULT_FIGMA_FILE_KEY }}
+          GITHUB_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPO: ${{ github.event.repository.name }}
+        run: |
+          cd packages/figma-sync
+          if [ -n "${{ inputs.node_ids }}" ]; then
+            npm run sync -- --nodes ${{ inputs.node_ids }}
+          else
+            npm run sync
+          fi
+      
+      - name: Create Pull Request
+        if: github.event_name != 'pull_request'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'feat: sync Figma designs'
+          title: '🎨 Update components from Figma'
+          body: |
+            ## Figma Design Sync
+            
+            This PR contains the latest design updates from Figma.
+            
+            - **File Key**: ${{ inputs.figma_file_key || secrets.DEFAULT_FIGMA_FILE_KEY }}
+            - **Synced at**: ${{ github.event.repository.updated_at }}
+            
+            ### Changes
+            - Updated React components based on Figma designs
+            - Synchronized styling and layout
+            
+            Please review the changes before merging.
+          branch: figma-sync/update-${{ github.run_number }}
+          delete-branch: true

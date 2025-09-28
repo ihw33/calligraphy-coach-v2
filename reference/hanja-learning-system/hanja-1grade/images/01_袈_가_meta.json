@@ -1,0 +1,29 @@
+{
+  "filename": "01_袈_가.png",
+  "character": "袈",
+  "reading": "가",
+  "meaning": "가사(袈裟)",
+  "radical": "衣",
+  "strokes": 5,
+  "explanation": "Kasaya의 音譯字로, 장삼 위에 왼쪽 어깨에서 오른쪽 겨드랑이 밑으로 걸쳐(加) 입는 중의 (衣), '가사(袈裟)'를 뜻한다.",
+  "examples": [
+    "錦袈(금가)"
+  ],
+  "source": {
+    "book": "한자능력검정시험 1급",
+    "page": 39,
+    "extraction_date": "2025-09-24T13:59:37.286561"
+  },
+  "image_info": {
+    "format": "PNG",
+    "dimensions": "400x200",
+    "dpi": 300
+  },
+  "tags": [
+    "hanja",
+    "chinese-character",
+    "grade-1",
+    "calligraphy",
+    "reading-가"
+  ]
+}

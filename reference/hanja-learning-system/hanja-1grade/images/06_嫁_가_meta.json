@@ -1,0 +1,40 @@
+{
+  "filename": "06_嫁_가.png",
+  "character": "嫁",
+  "reading": "가",
+  "meaning": "시집갈 가",
+  "radical": "女",
+  "strokes": 10,
+  "explanation": "계집(女)이 친가를 떠나 남편의 (家)으로 가는 데서, '시집가다'는 뜻이다.",
+  "examples": [
+    "嫁期(가기)",
+    "嫁女(가녀)",
+    "嫁母(가모)",
+    "嫁資(가자)",
+    "嫁娶(가취)",
+    "降嫁(강가)",
+    "改嫁(개가)",
+    "歸嫁(귀가)",
+    "娶嫁(취가)"
+  ],
+  "source": {
+    "book": "한자능력검정시험 1급",
+    "page": 39,
+    "extraction_date": "2025-09-24T13:59:37.287081"
+  },
+  "image_info": {
+    "format": "PNG",
+    "dimensions": "400x200",
+    "dpi": 300
+  },
+  "tags": [
+    "hanja",
+    "chinese-character",
+    "grade-1",
+    "calligraphy",
+    "reading-가"
+  ],
+  "synonyms": [
+    "娶"
+  ]
+}

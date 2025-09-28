@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>서예 연습 MVP - 캔버스 그리기 + 카메라 촬영</title>
+    <meta charset="utf-8">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root" style="min-height: 100vh; background: #f0f0f0; padding: 20px;">
+        <div style="background: red; color: white; padding: 20px;">
+            만약 이 텍스트가 보이면 HTML은 정상이고 React가 로딩되지 않은 것
+        </div>
+    </div>
+
+    <script type="text/babel">
+        console.log('Babel 스크립트 실행됨');
+        
+        // 점수 계산 함수 (GREEN 단계 - 매우 간단한 구현)
+        function calculateScore(strokes) {
+            console.log('✅ calculateScore 함수 호출됨');
+            
+            if (!strokes || strokes.length === 0) {
+                return 0;
+            }
+            
+            // 매우 간단한 점수 계산: 스트로크 개수 기반
+            // 10개 점마다 10점, 최대 100점
+            const strokeCount = strokes.length;
+            const baseScore = Math.min(Math.floor(strokeCount / 10) * 10, 100);
+            
+            // 최소 10점은 보장 (뭔가 그렸으면)
+            const finalScore = strokeCount > 0 ? Math.max(baseScore, 10) : 0;
+            
+            console.log(`점수 계산: ${strokeCount}개 점 → ${finalScore}점`);
+            return finalScore;
+        }
+        
+        // 캔버스 컴포넌트 - 그리기 기능 포함
+        function CalligraphyCanvas() {
+            console.log('CalligraphyCanvas 렌더링 시도됨');
+            
+            const canvasRef = React.useRef(null);
+            const [isDrawing, setIsDrawing] = React.useState(false);
+            const [strokes, setStrokes] = React.useState([]); // 스트로크 데이터 저장
+            const [currentScore, setCurrentScore] = React.useState(0); // 현재 점수
+            const [cameraMode, setCameraMode] = React.useState(false); // 카메라 모드
+            const [cameraStream, setCameraStream] = React.useState(null); // 카메라 스트림
+            const videoRef = React.useRef(null); // 비디오 엘리먼트 참조
+            
+            React.useEffect(() => {
+                const canvas = canvasRef.current;
+                if (!canvas) return;
+                
+                // 테스트: 마우스 이벤트 핸들러가 등록되어야 함
+                console.log('테스트 시작: 마우스 이벤트 핸들러 확인');
+                
+                // 카메라 버튼 테스트 (2초 후)
+                setTimeout(() => {
+                    console.log('테스트 시작: 카메라 버튼 확인');
+                    
+                    const cameraButton = document.querySelector('[data-testid="camera-button"]');
+                    if (cameraButton) {
+                        console.log('✅ 카메라 버튼 존재');
+                        
+                        // 버튼 텍스트 확인
+                        const buttonText = cameraButton.textContent;
+                        const hasPhotoText = buttonText.includes('사진') || buttonText.includes('📷');
+                        console.log(hasPhotoText ? '✅ 카메라 버튼 텍스트 올바름' : '❌ 카메라 버튼 텍스트 잘못됨');
+                        
+                        // 클릭 가능성 확인
+                        const isClickable = typeof cameraButton.onclick === 'function' || cameraButton.onclick !== null;
+                        console.log(isClickable ? '✅ 카메라 버튼 클릭 가능' : '❌ 카메라 버튼 클릭 불가');
+                        
+                    } else {
+                        console.log('❌ 카메라 버튼 없음 (아직 구현 안됨)');
+                    }
+                }, 2000);
+                
+                // 마우스 다운 테스트
+                const hasMouseDown = canvas.onmousedown !== null;
+                console.log(hasMouseDown ? '✅ mousedown 핸들러 존재' : '❌ mousedown 핸들러 없음');
+                
+                // 마우스 무브 테스트  
+                const hasMouseMove = canvas.onmousemove !== null;
+                console.log(hasMouseMove ? '✅ mousemove 핸들러 존재' : '❌ mousemove 핸들러 없음');
+                
+                // 마우스 업 테스트
+                const hasMouseUp = canvas.onmouseup !== null;
+                console.log(hasMouseUp ? '✅ mouseup 핸들러 존재' : '❌ mouseup 핸들러 없음');
+                
+                // 그리기 테스트: 캔버스에 실제로 선이 그려지는지 확인
+                setTimeout(() => {
+                    const ctx = canvas.getContext('2d');
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const hasDrawing = Array.from(imageData.data).some(pixel => pixel !== 255 && pixel !== 0);
+                    console.log(hasDrawing ? '✅ 캔버스에 그리기 감지됨' : '❌ 캔버스에 그리기 없음 (아직 구현 안됨)');
+                }, 1000);
+                
+                // 데이터 저장 테스트: 3초 후 스트로크 데이터 확인
+                setTimeout(() => {
+                    console.log('테스트 시작: 스트로크 데이터 저장 확인');
+                    console.log('현재 스트로크 개수:', strokes.length);
+                    
+                    if (strokes.length > 0) {
+                        console.log('✅ 스트로크 데이터 저장됨');
+                        console.log('첫 번째 스트로크 샘플:', strokes[0]);
+                        
+                        // 데이터 구조 테스트: {x, y, timestamp} 형태인지 확인
+                        const firstPoint = strokes[0];
+                        const hasX = firstPoint && typeof firstPoint.x === 'number';
+                        const hasY = firstPoint && typeof firstPoint.y === 'number';
+                        const hasTimestamp = firstPoint && typeof firstPoint.timestamp === 'number';
+                        
+                        console.log(hasX ? '✅ x 좌표 존재' : '❌ x 좌표 없음');
+                        console.log(hasY ? '✅ y 좌표 존재' : '❌ y 좌표 없음');
+                        console.log(hasTimestamp ? '✅ timestamp 존재' : '❌ timestamp 없음');
+                    } else {
+                        console.log('❌ 스트로크 데이터 없음 (아직 구현 안됨)');
+                        console.log('힌트: 캔버스에 그린 후 다시 확인하세요');
+                    }
+                }, 3000);
+                
+            }, [strokes]);
+            
+            // 마우스 이벤트 핸들러들 - 데이터 저장 기능 포함 (GREEN 단계)
+            const handleMouseDown = (e) => {
+                console.log('✅ handleMouseDown 구현됨');
+                setIsDrawing(true);
+                
+                const canvas = canvasRef.current;
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // 데이터 저장: 첫 번째 점 추가
+                const point = {
+                    x: x,
+                    y: y,
+                    timestamp: Date.now()
+                };
+                setStrokes(prev => [...prev, point]);
+                console.log('✅ 첫 번째 점 저장됨:', point);
+                
+                const ctx = canvas.getContext('2d');
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#000';
+            };
+            
+            const handleMouseMove = (e) => {
+                if (!isDrawing) return;
+                
+                console.log('✅ handleMouseMove 구현됨 - 그리는 중');
+                
+                const canvas = canvasRef.current;
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // 데이터 저장: 이동 경로 점들 추가
+                const point = {
+                    x: x,
+                    y: y,
+                    timestamp: Date.now()
+                };
+                setStrokes(prev => [...prev, point]);
+                
+                const ctx = canvas.getContext('2d');
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            };
+            
+            const handleMouseUp = (e) => {
+                console.log('✅ handleMouseUp 구현됨');
+                setIsDrawing(false);
+                
+                const canvas = canvasRef.current;
+                const ctx = canvas.getContext('2d');
+                ctx.closePath();
+                
+                console.log('✅ 스트로크 완료, 총 점 개수:', strokes.length);
+                
+                // 점수 업데이트 (GREEN 단계)
+                const newScore = calculateScore(strokes);
+                setCurrentScore(newScore);
+                console.log('✅ 점수 업데이트됨:', newScore);
+                
+                // 점수 계산 테스트 (5초 후)
+                setTimeout(() => {
+                    console.log('테스트 시작: 점수 계산 확인');
+                    
+                    // 점수 계산 함수가 존재하는지 테스트
+                    if (typeof calculateScore === 'function') {
+                        console.log('✅ calculateScore 함수 존재');
+                        
+                        // 점수 계산 테스트
+                        const score = calculateScore(strokes);
+                        console.log('계산된 점수:', score);
+                        
+                        // 점수 범위 테스트 (0-100)
+                        const isValidScore = typeof score === 'number' && score >= 0 && score <= 100;
+                        console.log(isValidScore ? '✅ 점수 범위 유효 (0-100)' : '❌ 점수 범위 무효');
+                        
+                        // 스트로크가 있으면 점수가 0보다 커야 함
+                        const hasPositiveScore = strokes.length > 0 ? score > 0 : true;
+                        console.log(hasPositiveScore ? '✅ 스트로크 있을 때 양수 점수' : '❌ 스트로크 있는데 0점');
+                        
+                        // UI 표시 테스트 (7초 후)
+                        setTimeout(() => {
+                            console.log('테스트 시작: 점수 UI 표시 확인');
+                            
+                            // DOM에서 점수 텍스트 찾기
+                            const scoreElement = document.querySelector('[data-testid="score-display"]');
+                            if (scoreElement) {
+                                console.log('✅ 점수 표시 엘리먼트 존재');
+                                
+                                const scoreText = scoreElement.textContent;
+                                console.log('점수 텍스트:', scoreText);
+                                
+                                // "점수: XX점" 형태인지 확인
+                                const hasScoreText = scoreText.includes('점수:') && scoreText.includes('점');
+                                console.log(hasScoreText ? '✅ 점수 텍스트 형식 올바름' : '❌ 점수 텍스트 형식 잘못됨');
+                                
+                                // 실제 점수가 표시되는지 확인
+                                const displayedScore = parseInt(scoreText.match(/\d+/)?.[0] || '0');
+                                const expectedScore = calculateScore(strokes);
+                                const isCorrectScore = displayedScore === expectedScore;
+                                console.log(isCorrectScore ? `✅ 점수 정확함 (${displayedScore}점)` : `❌ 점수 틀림 (표시: ${displayedScore}, 예상: ${expectedScore})`);
+                                
+                            } else {
+                                console.log('❌ 점수 표시 엘리먼트 없음 (아직 구현 안됨)');
+                            }
+                        }, 2000);
+                        
+                    } else {
+                        console.log('❌ calculateScore 함수 없음 (아직 구현 안됨)');
+                    }
+                }, 5000);
+            };
+            
+            return React.createElement('div', {
+                style: { textAlign: 'center' }
+            }, [
+                React.createElement('canvas', {
+                    key: 'canvas',
+                    ref: canvasRef,
+                    id: 'calligraphy-canvas',
+                    width: 800,
+                    height: 600,
+                    style: {
+                        border: '2px solid #333',
+                        backgroundColor: 'white',
+                        cursor: 'crosshair',
+                        display: 'block',
+                        margin: '0 auto'
+                    },
+                    onMouseDown: handleMouseDown,
+                    onMouseMove: handleMouseMove,
+                    onMouseUp: handleMouseUp
+                }),
+                // 카메라 모드일 때 비디오 표시
+                cameraMode && React.createElement('video', {
+                    key: 'camera-video',
+                    ref: videoRef,
+                    width: 400,
+                    height: 300,
+                    autoPlay: true,
+                    muted: true,
+                    style: {
+                        border: '2px solid #007bff',
+                        borderRadius: '8px',
+                        marginTop: '20px',
+                        display: 'block',
+                        margin: '20px auto'
+                    }
+                }),
+                React.createElement('div', {
+                    key: 'score',
+                    'data-testid': 'score-display',
+                    style: {
+                        marginTop: '20px',
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        color: '#333'
+                    }
+                }, `점수: ${currentScore}점`),
+                React.createElement('div', {
+                    key: 'mode-indicator',
+                    style: {
+                        marginTop: '10px',
+                        fontSize: '16px',
+                        color: cameraMode ? '#007bff' : '#666'
+                    }
+                }, cameraMode ? '📷 카메라 모드' : '✏️ 그리기 모드'),
+                // 카메라 모드일 때 촬영 버튼 추가
+                cameraMode && cameraStream && React.createElement('button', {
+                    key: 'capture-btn',
+                    style: {
+                        marginTop: '15px',
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        backgroundColor: '#28a745',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer'
+                    },
+                    onClick: () => {
+                        console.log('📸 사진 촬영 버튼 클릭');
+                        
+                        if (videoRef.current && canvasRef.current) {
+                            const canvas = canvasRef.current;
+                            const video = videoRef.current;
+                            const ctx = canvas.getContext('2d');
+                            
+                            // 비디오 프레임을 캔버스에 그리기
+                            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                            console.log('✅ 사진이 캔버스에 저장됨');
+                            
+                            // 촬영 후 자동으로 그리기 모드로 전환
+                            setCameraMode(false);
+                            if (cameraStream) {
+                                cameraStream.getTracks().forEach(track => track.stop());
+                                setCameraStream(null);
+                                videoRef.current.srcObject = null;
+                                console.log('✅ 촬영 완료 후 카메라 정리');
+                            }
+                        }
+                    }
+                }, '📸 촬영하기'),
+                React.createElement('button', {
+                    key: 'camera-btn',
+                    'data-testid': 'camera-button',
+                    style: {
+                        marginTop: '20px',
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        backgroundColor: '#007bff',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer'
+                    },
+                    onClick: async () => {
+                        console.log('✅ 카메라 버튼 클릭됨 - 기본 구현');
+                        
+                        if (!cameraMode) {
+                            // 카메라 모드로 전환 시 카메라 접근 테스트
+                            console.log('테스트 시작: 카메라 접근 확인');
+                            
+                            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                                console.log('✅ getUserMedia API 지원됨');
+                                
+                                try {
+                                    console.log('카메라 권한 요청 중...');
+                                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                                        video: true,
+                                        audio: false 
+                                    });
+                                    
+                                    console.log('✅ 카메라 스트림 획득 성공');
+                                    console.log('스트림 정보:', {
+                                        active: stream.active,
+                                        id: stream.id,
+                                        videoTracks: stream.getVideoTracks().length
+                                    });
+                                    
+                                    // 스트림 저장하고 비디오에 연결
+                                    setCameraStream(stream);
+                                    
+                                    // 비디오 연결은 다음 렌더링 후에 처리
+                                    setTimeout(() => {
+                                        if (videoRef.current) {
+                                            videoRef.current.srcObject = stream;
+                                            videoRef.current.play();
+                                            console.log('✅ 비디오 스트림 연결됨');
+                                        } else {
+                                            console.log('❌ 비디오 엘리먼트 없음');
+                                        }
+                                    }, 100);
+                                    
+                                } catch (error) {
+                                    console.log('❌ 카메라 접근 실패:', error.message);
+                                    console.log('힌트: 브라우저에서 카메라 권한을 허용해주세요');
+                                }
+                                
+                            } else {
+                                console.log('❌ getUserMedia API 지원 안됨');
+                            }
+                        } else {
+                            // 카메라 모드 끄기 - 스트림 정리
+                            if (cameraStream) {
+                                cameraStream.getTracks().forEach(track => track.stop());
+                                setCameraStream(null);
+                                if (videoRef.current) {
+                                    videoRef.current.srcObject = null;
+                                }
+                                console.log('✅ 카메라 스트림 정리 완료');
+                            }
+                        }
+                        
+                        setCameraMode(!cameraMode);
+                        console.log('카메라 모드 전환:', !cameraMode);
+                    }
+                }, '📷 사진 촬영')
+            ]);
+        }
+        
+        function App() {
+            console.log('App 컴포넌트 렌더링됨');
+            
+            React.useEffect(() => {
+                console.log('App useEffect 실행됨');
+                
+                // 테스트 검증: 캔버스가 DOM에 존재하고 크기가 올바른지 확인
+                const canvas = document.getElementById('calligraphy-canvas');
+                if (canvas) {
+                    console.log('✅ 테스트 통과: 캔버스 엘리먼트 존재');
+                    console.log('✅ 테스트 통과: 캔버스 크기', canvas.width, 'x', canvas.height);
+                } else {
+                    console.log('❌ 테스트 실패: 캔버스 엘리먼트 없음');
+                }
+            }, []);
+            
+            return React.createElement('div', {
+                style: { 
+                    maxWidth: '1000px',
+                    margin: '0 auto',
+                    padding: '20px'
+                }
+            }, [
+                React.createElement('h1', { key: 'title' }, '서예 연습 시스템'),
+                React.createElement('p', { key: 'desc' }, '캔버스에 그리거나 실제 붓글씨를 촬영하여 연습하세요'),
+                React.createElement(CalligraphyCanvas, { key: 'canvas' })
+            ]);
+        }
+        
+        console.log('ReactDOM.render 시작');
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+        console.log('ReactDOM.render 완료');
+    </script>
+</body>
+</html>

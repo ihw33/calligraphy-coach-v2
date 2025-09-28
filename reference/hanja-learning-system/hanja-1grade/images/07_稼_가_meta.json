@@ -1,0 +1,38 @@
+{
+  "filename": "07_稼_가.png",
+  "character": "稼",
+  "reading": "가",
+  "meaning": "심을 가",
+  "radical": "禾",
+  "strokes": 10,
+  "explanation": "(禾)를 심고 사는(家) 것으로, '심다, 농사'를 뜻한다. 또, 여문 '벼이삭'을 뜻한다.",
+  "examples": [
+    "稼器(가기)",
+    "稼動(가동)",
+    "稼事(가사)",
+    "稼穡(가서)",
+    "稼政(가정)",
+    "共稼(공가)",
+    "農稼(농가)",
+    "百稼(백가)",
+    "五稼(오가)",
+    "秋稼(추가)"
+  ],
+  "source": {
+    "book": "한자능력검정시험 1급",
+    "page": 39,
+    "extraction_date": "2025-09-24T13:59:37.287326"
+  },
+  "image_info": {
+    "format": "PNG",
+    "dimensions": "400x200",
+    "dpi": 300
+  },
+  "tags": [
+    "hanja",
+    "chinese-character",
+    "grade-1",
+    "calligraphy",
+    "reading-가"
+  ]
+}

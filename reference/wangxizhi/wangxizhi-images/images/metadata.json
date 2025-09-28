@@ -1,0 +1,99 @@
+{
+  "collection": "왕희지 집자성교서",
+  "source": "大唐三藏聖敎序",
+  "subtitle": "太宗文皇帝製",
+  "total_characters": 11,
+  "characters": [
+    {
+      "id": 1,
+      "character": "大",
+      "korean": "대",
+      "meaning": "크다",
+      "filename": "01_大_대.png",
+      "position": "제목 첫 글자"
+    },
+    {
+      "id": 2,
+      "character": "唐",
+      "korean": "당",
+      "meaning": "당나라",
+      "filename": "02_唐_당.png",
+      "position": "제목 둘째 글자"
+    },
+    {
+      "id": 3,
+      "character": "三",
+      "korean": "삼",
+      "meaning": "셋",
+      "filename": "03_三_삼.png",
+      "position": "제목 셋째 글자"
+    },
+    {
+      "id": 4,
+      "character": "藏",
+      "korean": "장",
+      "meaning": "감추다, 삼장",
+      "filename": "04_藏_장.png",
+      "position": "제목 넷째 글자"
+    },
+    {
+      "id": 5,
+      "character": "聖",
+      "korean": "성",
+      "meaning": "성스럽다",
+      "filename": "05_聖_성.png",
+      "position": "제목 다섯째 글자"
+    },
+    {
+      "id": 6,
+      "character": "敎",
+      "korean": "교",
+      "meaning": "가르치다",
+      "filename": "06_敎_교.png",
+      "position": "제목 여섯째 글자"
+    },
+    {
+      "id": 7,
+      "character": "序",
+      "korean": "서",
+      "meaning": "차례, 서문",
+      "filename": "07_序_서.png",
+      "position": "제목 일곱째 글자"
+    },
+    {
+      "id": 8,
+      "character": "太",
+      "korean": "태",
+      "meaning": "크다, 태종",
+      "filename": "08_太_태.png",
+      "position": "부제 첫 글자"
+    },
+    {
+      "id": 9,
+      "character": "宗",
+      "korean": "종",
+      "meaning": "마루, 종가",
+      "filename": "09_宗_종.png",
+      "position": "부제 둘째 글자"
+    },
+    {
+      "id": 10,
+      "character": "文",
+      "korean": "문",
+      "meaning": "글, 문장",
+      "filename": "10_文_문.png",
+      "position": "부제 셋째 글자"
+    },
+    {
+      "id": 11,
+      "character": "皇",
+      "korean": "황",
+      "meaning": "황제",
+      "filename": "11_皇_황.png",
+      "position": "부제 넷째 글자"
+    }
+  ],
+  "created_date": "2024-01-24",
+  "description": "왕희지 집자성교서의 제목 부분 한자들입니다. '大唐三藏聖敎序'는 '대당삼장성교서'로 읽으며, 당나라 삼장법사(현장법사)의 성스러운 가르침에 대한 서문이라는 뜻입니다. '太宗文皇'은 '태종문황'으로 당 태종 문황제를 의미합니다.",
+  "note": "제작자 부분 '帝製'는 이미지에 포함되지 않음"
+}
